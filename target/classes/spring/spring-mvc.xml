@@ -89,4 +89,55 @@
         <property name="resolveLazily" value="true"/>
     </bean>
 
+
+
+    <!--<bean id="cronTest" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+        <!--<property name="targetObject">-->
+            <!--&lt;!&ndash; 指定要定时执行的方法所在类，将定时任务定义成bean &ndash;&gt;-->
+            <!--<ref bean="CronTest" />-->
+        <!--</property>-->
+        <!--<property name="targetMethod">-->
+            <!--&lt;!&ndash; 指定定时执行的方法 &ndash;&gt;-->
+            <!--<value>helloCron</value>-->
+        <!--</property>-->
+        <!--&lt;!&ndash;-->
+        <!--<property name="group">-->
+        <!--<value>file</value> DEFAULT-->
+        <!--</property>-->
+         <!--&ndash;&gt;-->
+        <!--<property name="concurrent">-->
+            <!--&lt;!&ndash; 指定目标封装为有状态的任务，有状态的任务不能并发执行(false,不能并发)，无状态的任务可并发执行(true) &ndash;&gt;-->
+            <!--<value>false</value>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash; 	每隔指定时间触发。定义触发时间 &ndash;&gt;-->
+    <!--<bean id="acronTestDoTime" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
+        <!--<property name="jobDetail">-->
+            <!--<ref bean="cronTest" />-->
+        <!--</property>-->
+        <!--<property name="cronExpression">-->
+            <!--&lt;!&ndash;  */10表示：从任意时刻开始，然后每10秒触发一次  &ndash;&gt;-->
+            <!--&lt;!&ndash; 如 12/10 （放在秒（第一个）的位置）就表示：从12秒开始，然后每10秒触发一次  &ndash;&gt;-->
+            <!--<value>*/10 * * * * ?</value>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+
+
+    <!--&lt;!&ndash; 	启动工作 &ndash;&gt;-->
+    <!--&lt;!&ndash; 	总管理类 如果将lazy-init='false'那么容器一启动就会执行调度程序  &ndash;&gt;-->
+    <!--<bean id="sfb" lazy-init="true" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
+        <!--<property name="triggers">-->
+            <!--<list>-->
+                <!--&lt;!&ndash;<ref bean="doTime" />&ndash;&gt;-->
+                <!--<ref bean="acronTestDoTime"/>-->
+                <!--&lt;!&ndash; <ref bean="dataSynDoTime" />   &ndash;&gt;-->
+                <!--&lt;!&ndash; 	<ref bean="doItemTime" />  &ndash;&gt;-->
+                <!--&lt;!&ndash;    <ref bean="sendMsgTime"/> &ndash;&gt;-->
+                <!--&lt;!&ndash; 	<ref bean="scanTaskTime"/>  &ndash;&gt;-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
 </beans>
