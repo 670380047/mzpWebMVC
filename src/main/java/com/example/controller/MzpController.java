@@ -100,7 +100,7 @@ public class MzpController {
     public ModelAndView modelTest(Model model, Map map, ModelMap modelMap){
         ModelAndView mv = new ModelAndView();
         //ModelAndView是在视图渲染之前才执行的，此处添加的modelMap虽然在前面，但是最后会覆盖下面添加的modelMap
-        mv.addObject("modelMap","渲染前执行");
+        mv.addObject("modelMap","渲染前执行:ModelAndView是在视图渲染之前才执行的，此处添加的modelMap虽然在前面，但是最后会覆盖下面添加的modelMap");
 
         mv.setViewName("jsp/model");
         //在Model中添加的属性会跟随ModelAndView
