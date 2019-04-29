@@ -30,7 +30,7 @@ public class ArrayAndLinked {
         list = new LinkedList();
         insertFirst(list,"LinkedList");
 
-        System.out.println("==============================分割线====================================");
+        System.out.println("==============================分割线==========================================================");
 
         //实例化一个ArrayList
         list = new ArrayList();
@@ -39,6 +39,16 @@ public class ArrayAndLinked {
         //实例化一个LinkedList
         list = new LinkedList();
         insertLast(list,"LinkedList");
+
+        System.out.println("==============================分割线==========================================================");
+
+        //实例化一个ArrayList
+        list = new ArrayList();
+        modify(list,"ArrayList");
+
+        //实例化一个LinkedList
+        list = new LinkedList();
+        modify(list,"LinkedList");
     }
 
     /**
@@ -85,5 +95,26 @@ public class ArrayAndLinked {
         Long end = System.currentTimeMillis();
         Long time = end-start;
         System.out.println("在"+type+"最  后面  插入"+total+"条数据，总共耗时"+time+"毫秒");
+    }
+
+    private static void modify(List<Integer> list, String type){
+        int total = 100*1000;
+        int index = total/2;
+        final int number = 7;
+        //初始化
+        for(int i=0;i<total;i++){
+            list.add(number);
+        }
+        //开始时间
+        Long start = System.currentTimeMillis();
+        for( int i=0;i<total;i++){
+            int n = list.get(index);
+            n++;
+            list.set(index,n);
+        }
+        Long end = System.currentTimeMillis();
+        Long time = end-start;
+        System.out.println(type+"总长度是"+total+",定位到第"+index+"元素，取出来+1，再放回去，重复了"+total+"次，共耗时"
+        +time+"毫秒");
     }
 }
