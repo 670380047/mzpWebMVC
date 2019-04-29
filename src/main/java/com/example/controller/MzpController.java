@@ -99,7 +99,7 @@ public class MzpController {
     //　　使用后面3种方式，都是在方法参数中，指定一个该类型的参数.  效果一样，一般使用map就可以了
     public ModelAndView modelTest(Model model, Map map, ModelMap modelMap){
         ModelAndView mv = new ModelAndView();
-        //ModelAndView是在视图渲染之前才执行的，此处添加的modelMap虽然在前面，但是最后会覆盖下面添加的modelMap
+        //ModelAndView是在视图渲染之前才执行的，此处添加的modelMap（来自ModelMap）虽然在前面，但是最后会覆盖下面添加的modelMap(来自ModelAndView)
         mv.addObject("modelMap","渲染前执行:ModelAndView是在视图渲染之前才执行的，此处添加的modelMap虽然在前面，但是最后会覆盖下面添加的modelMap");
 
         mv.setViewName("jsp/model");
