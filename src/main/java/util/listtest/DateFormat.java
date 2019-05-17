@@ -15,7 +15,44 @@ import java.util.Date;
 public class DateFormat {
 
     public static void main(String[] args) {
-        test();
+
+//        test();
+        test1();
+    }
+
+    /**
+    * @Author maozp3
+    * @Description: 获取任意给定时间的下个月一号
+    * @Date: 17:26 2019/5/13
+    * @Param []
+    * @return void
+    **/
+    public static void test1(){
+        SimpleDateFormat d = new SimpleDateFormat("yyyyMMddHHmmss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar calendar = Calendar.getInstance();
+        String dateTime = "2019-08-22 16:10:30";
+        Date parseDateTime;
+        try {
+             parseDateTime = df.parse(dateTime);
+             //把指定时间放进去，作为接下来时间处理的基准
+            calendar.setTime(parseDateTime);
+            System.out.println("模板时间是："+dateTime);
+            //设置day为第一天。
+            calendar.set(Calendar.DAY_OF_MONTH  ,1);
+            System.out.println("月："+calendar.get(Calendar.MONTH));  //传入时间是8月份，这里显示的结果是7（因为从0开始）
+            //设置月为当前月的下一个月份
+            calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)+1); //月份从0（0-11）开始计算。所以传入的是7，但显示的是8
+            //24小时制的小时，设为0
+            calendar.set(Calendar.HOUR_OF_DAY  ,0);
+            calendar.set(Calendar.MINUTE  ,0);
+            calendar.set(Calendar.SECOND  ,0);
+            String resultTime = df.format(calendar.getTime());
+            System.out.println("下个月一号："+resultTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void test(){
