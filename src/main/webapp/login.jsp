@@ -20,7 +20,7 @@
 <form action="index.jsp" method="post">
     用户名：<input type="text" name="userName"><br/>
     密码：<input type="password" name="password"> <br/> <br/>
-    <input type="button" name="登陆" style="margin-left:65px;"  >
+    <input type="submit" name="登陆" style="margin-left:65px;"  >
 
 </form>
 </body>

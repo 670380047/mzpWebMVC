@@ -1,4 +1,4 @@
-package com.example.service.intercepter;
+package com.example.interceptor;
 
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.stereotype.Service;

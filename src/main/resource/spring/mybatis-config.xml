@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!-- 打印查询语句 -->
+        <setting name="logImpl" value="LOG4J" />
+
+        <!--&lt;!&ndash; 打开延迟加载的开关。默认为false &ndash;&gt;-->
+        <!--<setting name="lazyLoadingEnabled" value="true" />-->
+        <!--&lt;!&ndash; 将积极加载改为消息加载即按需加载，默认为true &ndash;&gt;-->
+        <!--<setting name="aggressiveLazyLoading" value="false"/>-->
+
+        <!--开启二级缓存-->
+        <!--<setting name="cacheEnabled" value="true"/>-->
+    </settings>
+
+
+
+    <!--<plugins>-->
+        <!--&lt;!&ndash; PageHelper4.1.6 &ndash;&gt;-->
+        <!--<plugin interceptor="com.github.pagehelper.PageHelper">-->
+            <!--&lt;!&ndash;  <property name="dialect" value="oracle"/> &ndash;&gt;-->
+            <!--<property name="pageSizeZero" value="true"/>-->
+            <!--&lt;!&ndash; 开启分页合理化参数 &ndash;&gt;-->
+            <!--<property name="reasonable" value="true"/>-->
+            <!--<property name="supportMethodsArguments" value="false"/>-->
+        <!--</plugin>-->
+    <!--</plugins>-->
+</configuration>
