@@ -13,4 +13,5 @@ import java.util.Map;
 
 public interface IUserInfoMapper {
      List<Map<String,Object>> selectUserInfoAll();
+     List<Map<String,Object>>  test(long id);
 }

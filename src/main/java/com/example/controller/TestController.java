@@ -38,4 +38,17 @@ public class TestController {
         model.addAttribute("loginMessgae", "登陆成功");
         return "jsp/main";
     }
+
+    @RequestMapping("getAllTest")
+    public String getUserInfoListTest(Model model){
+        System.out.println("进入mybatis测试。。。");
+        List<Map<String,Object>> userInfoList = testService.selectUserInfoAllTest();
+        System.out.println("userInfo测试结果：");
+        for(int i=0;i<userInfoList.size(); i++){
+            System.out.println(userInfoList.get(i));
+        }
+        model.addAttribute("userInfoList", userInfoList);
+        model.addAttribute("loginMessgae", "登陆成功");
+        return "jsp/main";
+    }
 }
