@@ -18,8 +18,8 @@
 
 
 
+
     <!--<plugins>-->
-        <!--&lt;!&ndash; PageHelper4.1.6 &ndash;&gt;-->
         <!--<plugin interceptor="com.github.pagehelper.PageHelper">-->
             <!--&lt;!&ndash;  <property name="dialect" value="oracle"/> &ndash;&gt;-->
             <!--<property name="pageSizeZero" value="true"/>-->

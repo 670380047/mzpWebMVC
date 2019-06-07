@@ -1,5 +1,7 @@
 package com.example.dao;
 
+import com.example.model.UserInfo;
+
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +14,6 @@ import java.util.Map;
  */
 
 public interface IUserInfoMapper {
-     List<Map<String,Object>> selectUserInfoAll();
+     List<UserInfo> selectUserInfoAll();
      List<Map<String,Object>>  test(long id);
 }

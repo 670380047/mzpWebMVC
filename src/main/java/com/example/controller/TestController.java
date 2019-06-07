@@ -6,11 +6,15 @@ package com.example.controller;/**
  * @Software: IntelliJ IDEA 2019.3.15
  */
 
+import com.example.model.UserInfo;
 import com.example.service.TestService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
@@ -27,15 +31,21 @@ public class TestController {
     @Autowired
     TestService testService;
     @RequestMapping("getAll")
-    public String getUserInfoList(Model model){
+    public String getUserInfoList(Model model,@RequestParam(value = "start",defaultValue = "0") int start,
+                                 @RequestParam(value = "size",defaultValue = "3") int size){
         System.out.println("进入mybatis测试。。。");
-        List<Map<String,Object>> userInfoList = testService.selectUserInfoAll();
-        System.out.println("userInfo测试结果：");
-        for(int i=0;i<userInfoList.size(); i++){
-            System.out.println(userInfoList.get(i));
+        //开启分页(目前尚未配置)
+        PageHelper.startPage(start, size);
+        List<UserInfo> userInfoList = testService.selectUserInfoAll();
+        //放入pageInfo
+        PageInfo<UserInfo> pageInfo = new PageInfo<>(userInfoList);
+
+        System.out.println("pageInfo测试结果：");
+        for(int i=0;i<pageInfo.getSize(); i++){
+            System.out.println(pageInfo.getList().get(i));
         }
-        model.addAttribute("userInfoList", userInfoList);
-        model.addAttribute("loginMessgae", "登陆成功");
+        model.addAttribute("userInfoList", pageInfo);
+        model.addAttribute("loginMessage", "登陆成功");
         return "jsp/main";
     }
 
@@ -48,7 +58,7 @@ public class TestController {
             System.out.println(userInfoList.get(i));
         }
         model.addAttribute("userInfoList", userInfoList);
-        model.addAttribute("loginMessgae", "登陆成功");
+        model.addAttribute("loginMessage", "登陆成功");
         return "jsp/main";
     }
 }

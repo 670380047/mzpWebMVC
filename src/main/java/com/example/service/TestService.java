@@ -39,13 +39,8 @@ public class TestService {
 
     public List selectUserInfoAllTest(){
         System.out.println("进入service层了");
-        List list = new ArrayList();
-        try {
-            //因为之前出错了，但没提示。 所以这里对查询语句做了一个异常捕获
-            list = userInfoDao.test(4);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List list = userInfoDao.test(4);
+        System.out.println("list是null还是0？ "+list.toString());
         return list ;
     }
 }

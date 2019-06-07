@@ -21,15 +21,15 @@
         <td>password</td>
         <td>age</td>
     </tr>
-    ${userInfoList}
-    <%--<c:forEach var="userInfo" items="userInfoList">--%>
-    <%--<tr>--%>
-        <%--<td>${userInfo.get("id")}</td>--%>
-        <%--<td>${userInfo.get("username")}</td>--%>
-        <%--<td>${userInfo.get("password")}</td>--%>
-        <%--<td>${userInfo.get("my_age")}</td>--%>
-    <%--</tr>--%>
-    <%--</c:forEach>--%>
+    ${userInfoList.list}
+    <c:forEach var="userInfo" items="${userInfoList.list}">
+    <tr>
+        <td>${userInfo.id}</td>
+        <td>${userInfo.username}</td>
+        <td>${userInfo.password}</td>
+        <td>${userInfo.myAge}</td>
+    </tr>
+    </c:forEach>
 </table>
 </body>
 </html>

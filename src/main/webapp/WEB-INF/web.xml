@@ -4,6 +4,8 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+
+
     <!-- 设置监听，在web容器启动时自动装配ApplicationContext的配置信息（这里就是下面的）contextConfigLocation-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -13,6 +15,8 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:spring/spring-mybatis.xml</param-value>
     </context-param>
+    
+
 
 
     <!--springMVC核心。配置springMVC前端控制器dispatcherServlet-->
