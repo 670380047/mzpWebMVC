@@ -64,7 +64,7 @@ public class Node {
                 }
                 leftNode.add(v);
             }else{
-                //又子树若不存在，就创建一个，然后添加。如果存在就直接添加。
+                //右子树若不存在，就创建一个，然后添加。如果存在就直接添加。
                 if(null == rightNode){
                     rightNode = new Node();
                 }
@@ -143,12 +143,12 @@ public class Node {
 
 
 
-    /*@Override
-    public String toString() {
-        return "Node{" +
-                "leftNode=" + leftNode +
-                ", rightNode=" + rightNode +
-                ", value=" + value +
-                '}';
-    }*/
+//    @Override
+//    public String toString() {
+//        return "Node{" +
+//                "leftNode=" + leftNode +
+//                ", rightNode=" + rightNode +
+//                ", value=" + value +
+//                '}';
+//    }
 }
