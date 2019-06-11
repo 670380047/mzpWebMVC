@@ -9,18 +9,19 @@
 <html>
 <head>
     <title>登陆</title>
-    <script type="text/javascript" src="WEB-INF/statics/js/easyUI/jquery.min.js"></script>
-    <script type="text/javascript" src="WEB-INF/statics/js/easyUI/jquery.easyui.min.js"></script>
+    <%-- 引用资源文件配置页--%>
+    <%@include file="test/include.jsp"%>
 </head>
 <body>
 <script type="text/javascript">
     document.write("<h1>This is a heading</h1>");
     document.write("<p>This is a paragraph.</p>");
 </script>
-<form action="index.jsp" method="post">
-    用户名：<input type="text" name="userName"><br/>
+<form action="welcome" method="post">
+    用户名：<input type="text" name="username"><br/>
     密码：<input type="password" name="password"> <br/> <br/>
     <input type="submit" name="登陆" style="margin-left:65px;"  >
+    <p>${message}</p>
 
 </form>
 </body>
