@@ -22,6 +22,7 @@
         <td>age</td>
     </tr>
     ${userInfoList.list}
+
     <c:forEach var="userInfo" items="${userInfoList.list}">
     <tr>
         <td>${userInfo.id}</td>
