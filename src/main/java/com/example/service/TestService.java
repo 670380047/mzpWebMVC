@@ -10,7 +10,6 @@ import com.example.dao.IUserInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,14 +25,7 @@ public class TestService {
 
 
     public List selectUserInfoAll(){
-        System.out.println("进入service层了");
-        List list = new ArrayList();
-        try {
-            //因为之前出错了，但没提示。 所以这里对查询语句做了一个异常捕获
-            list = userInfoDao.selectUserInfoAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List list = userInfoDao.selectUserInfoAll();
         return list ;
     }
 

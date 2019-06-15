@@ -37,7 +37,7 @@ public class TestController {
     CheckUserService checkUserService;
 
     @RequestMapping("/welcome")
-    public String hello(HttpServletRequest request, Map map){
+    public String hello(HttpServletRequest request, Map map ){
         map.put("username",request.getParameter("username"));
         map.put("password",request.getParameter("password"));
         if(checkUserService.checkUser(map)){
