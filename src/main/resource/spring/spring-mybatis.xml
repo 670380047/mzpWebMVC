@@ -21,7 +21,7 @@
         <property name="jdbcUrl" value="${jdbc.url}"/>
         <property name="user" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
-        
+
         <property name="initialPoolSize" value="${initialPoolSize}"/>
         <property name="acquireIncrement" value="${acquireIncrement}"/>
         <property name="maxIdleTime" value="${maxIdleTime}"/>
@@ -42,7 +42,7 @@
 
     <!-- DAO接口所在包名(只到包名，不带具体文件名，最后也不带.*)，
     Spring会自动查找其下的类 ,包下的类需要使用@MapperScan注解,否则容器注入会失败
-    (似乎也可以什么注解都不写，@Repository或@MapperScan，他也会把这个路径下的所有类自动注册为bean) -->
+    (似乎也可以什么注解都不写，@Repository或@MapperScan不写，他也会把这个路径下的所有类自动注册为bean) -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.example.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>

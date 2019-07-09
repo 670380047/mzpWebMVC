@@ -23,4 +23,9 @@ public class StringIsEmpty {
         Long myLong = 1L;
         System.out.println(StringUtils.isEmpty(myLong));
     }
+
+    //重写StringUtils中的 isEmpty方法
+    public static boolean isEmpty( Object str) {
+        return str == null || "".equals(str)||"null".equals(str)||"NULL".equals(str);
+    }
 }
