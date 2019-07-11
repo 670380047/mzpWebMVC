@@ -19,7 +19,9 @@ public class TestLambda {
     public static List<Integer> integerList = Arrays.asList(1,2,15,6,9,13,7);
 
     public static void main(String[] args) {
-        System.out.println("排序前：");
+
+
+        System.out.println("\n排序前：");
         printList(integerList);
         oldIntegerSort();
         System.out.println("\noldSort排序后：");
@@ -38,6 +40,8 @@ public class TestLambda {
 //        System.out.println("\nnewSort排序后：");
 //        printList(list);
     }
+
+
 
 
     /**
@@ -77,11 +81,12 @@ public class TestLambda {
 
     /**
      * @Author maozp3
-     * @Description: 打印集合元素
+     * @Description: 打印集合元素    泛型方法的定义：在方法返回值前声明一下<T>,任意字母都可以比如<M>，表名该方法是泛型方法
      * @Date: 10:38 2019/7/8
      * @Param [list]
      * @return void
      **/
+
     public static <T> void printList(List<T> list){
         Iterator<T> iterator = list.iterator();
         while(iterator.hasNext()){

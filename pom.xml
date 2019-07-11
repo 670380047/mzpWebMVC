@@ -105,6 +105,27 @@
     <!--=====================数据库相关end=====================-->
 
 
+    <!--=====================json相关start=====================-->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.9.8</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.9.8</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>2.9.8</version>
+    </dependency>
+    <!--=====================json相关end=====================-->
+
+
     <!--spring相关包-->
     <dependency>
       <groupId>org.springframework</groupId>
