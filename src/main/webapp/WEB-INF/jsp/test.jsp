@@ -17,13 +17,15 @@
        function mzpTest() {
            var urlName = "urlNameTest";
            var url = "queryTest?urlName="+urlName;
-           var obj = {"username":"mzp","password":"123","myAge":24}
+           var obj = "{\"username\":\"mzp\",\"password\":\"123\",\"myAge\":100}"  //json串，可以直接发送
+           // var obj = {"username":"mzp","password":"123","myAge":24}   //json对象，需要转化成json串
 
            $.ajax({
                url:url,
                type:'POST',
                dataType:'JSON',
-               data:JSON.stringify(obj),
+               //JSON.stringify(obj)  //将json对象转化为json串
+               data:obj,
                contentType:'application/json;charset=utf-8',
                success:function (result) {
                    alert(JSON.stringify(result))
