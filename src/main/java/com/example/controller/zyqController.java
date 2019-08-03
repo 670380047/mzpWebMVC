@@ -7,8 +7,13 @@ package com.example.controller;/**
  */
 
 import com.example.model.UserInfo;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -33,8 +38,19 @@ public class zyqController {
          * readValue(json串，需要转换成的java对象.class)   如：readValue(json,UserInfo.class)，把json串转换为UserInfo对象
          *
          */
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String jsonObject = null;
+        System.out.println("userInfo:"+userInfo);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonObject = null;
+        try {
+            //因为前面用对象接受了前台传过来的json串，最终为了转成map（json串到map），所以这里多了一步把对象转换再为json串的步骤
+            jsonObject = objectMapper.writeValueAsString(userInfo);
+            System.out.println("json串"+jsonObject);
+            //把json串转换为map
+            Map<String,String> jsonToMap = objectMapper.readValue(jsonObject, HashMap.class);
+            System.out.println("name="+jsonToMap.get("username"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 //        try {
 //            //jackson把java对象转为json串的关键（序列化）
 //             jsonObject = objectMapper.writeValueAsString(userInfo);
