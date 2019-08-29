@@ -43,6 +43,7 @@ public class zyqController {
         String jsonObject = null;
         try {
             //因为前面用对象接受了前台传过来的json串，最终为了转成map（json串到map），所以这里多了一步把对象转换再为json串的步骤
+            //list、map、java对象转json串，都是这个操作。结果为String
             jsonObject = objectMapper.writeValueAsString(userInfo);
             System.out.println("json串"+jsonObject);
             //把json串转换为map

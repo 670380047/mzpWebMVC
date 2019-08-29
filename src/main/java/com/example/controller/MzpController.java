@@ -110,6 +110,7 @@ public class MzpController {
         map.put("mzp1","毛宗鹏");
         model.addAttribute("model","毛宗鹏model");
         //model.addAllAttributes(map);   //不需要
+        //这里的modelMap会被前面前面的mv对应的modelMap给覆盖掉。  因为mv是在最后视图渲染之前执行的。
         modelMap.addAttribute("modelMap","毛宗鹏modelMap");
         //AnnotationMethodHandlerAdapter和RequestMappingHandlerApapter将使用
         //BindingAwareModelMap作为模型对象的实现。即方法中传入的三个形参都是同一个对象。

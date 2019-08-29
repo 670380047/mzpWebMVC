@@ -1,3 +1,11 @@
+package util.httpclient;/**
+ * @version: java version 1.7+
+ * @Author : mzp
+ * @Time : 2019/8/29 11:12
+ * @File : HttpClient
+ * @Software: IntelliJ IDEA 2019.3.15
+ */
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,18 +19,22 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * @version: java version 1.7+
- * @Author : mzp
- * @Time : 2019/3/27 9:11
- * @File : TestJson
- * @Software: IntelliJ IDEA 2019.3.15
+ *
+ * @author maozp3
+ * @description:
+ * @date: 2019/8/29 11:12
  */
-public class TestJson {
+public class HttpClient {
     public static void main(String args[]){
         try {
+//            doJson();
             jsonRequest();
         } catch (URISyntaxException e) {
             e.printStackTrace();
@@ -32,11 +44,11 @@ public class TestJson {
     }
 
     /**
-     * 普通客户端测试（服务器之间的通信可使用该方式）
+     * 普通客户端测试（服务器之间的通信可使用该方式） 方式一，更熟悉一点
      * @throws URISyntaxException
      * @throws IOException
      */
-    private static void jsonRequest() throws URISyntaxException, IOException {
+    private static void jsonRequestOne() throws URISyntaxException, IOException {
         BufferedReader bufferedReader = null;
         InputStream inputStream = null;
         //请求的地址
@@ -61,7 +73,7 @@ public class TestJson {
             //4.得到响应体的编码方式
             Charset charset = response.getHeaders().getContentType().getCharset();
             //5.得到响应体的内容.将响应体的内容作为输入流 （InputStream是所有字节输入流动父类）
-             inputStream = response.getBody();
+            inputStream = response.getBody();
             //6.将字节输入流InputStream通过InputStreamReader()转换为字符输入流BufferedReader。
             // 因为转换为字符输入流BufferedReader的读取效率更高，可以从数据源一行一行的读数据
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -91,10 +103,62 @@ public class TestJson {
 //        System.out.println("编码方式charset:"+charset+"  json data:"+jsonData);
     }
 
-    public void doJson(){
+
+    /**
+     * 普通客户端测试（服务器之间的通信可使用该方式）方式二
+     * @throws URISyntaxException
+     * @throws IOException
+     */
+    private static void jsonRequest() throws URISyntaxException, IOException {
+//        String urlString = "http://localhost:8080/NmUserDataSyn/billing/plca/prodInstAttr";
+        String urlString = "http://localhost:8181/getAll?start=2";
+        String jsonBody ;
+        BufferedReader bufferedReader = null;
+        String result = "";
+        //设置访问链接
+        try {
+            URL  url= new URL(urlString);
+            //打开链接
+            URLConnection conn = url.openConnection();
+            //2.设置客户端可接受的媒体类型（即需要什么类型的响应数据） accept和控制层的produce匹配
+            conn.setRequestProperty("accept","application/json");  //("accept","*/*") 表示所有类型
+            conn.setRequestProperty("connection","Keep-Alive");
+            //Content-Type和控制层的consumes匹配
+            conn.setRequestProperty("Content-Type","text/html");
+            conn.setRequestProperty("appid","1234");  //非必须。这个额外设置的一些自定义请求头
+            conn.setRequestProperty("appkey","123456");  //非必须。这个额外设置的一些自定义请求头
+            conn.setRequestProperty("prodInstAttr","attr66666");
+            //发送post请求必须设置如下两行
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+
+            //BufferedReader输入输出流来读取url的响应
+            bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            while((line = bufferedReader.readLine()) != null){
+                result += line;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(bufferedReader != null){
+                bufferedReader.close();
+            }
+        }
+        System.out.println("测试结果："+result);
+    }
+
+
+    public static void doJson(){
 
         ObjectMapper objectMapper = new ObjectMapper();
         String json = "{\"prodInstAttr\":\"attr1\" , \"name\":\"mzp\"}";
-
+        try {
+            Map<String,String> jsonToMap = objectMapper.readValue(json, HashMap.class);
+            System.out.println("测试："+jsonToMap);
+            System.out.println("测试结束");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
