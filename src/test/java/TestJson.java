@@ -66,6 +66,9 @@ public class TestJson {
             // 因为转换为字符输入流BufferedReader的读取效率更高，可以从数据源一行一行的读数据
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String jsonData = "";
+            //样例：把“猫”这个字符串通过iso-8859-1解析之后，在通过utf-8来编码成新的字符串。
+            //用法：可以把某字符串通过某种编码方式进行解析之后，进行传递。  传递到目的地之后，再用另一种编码解析回来。
+//            String mzp = new String("猫".getBytes("iso-8859-1"),"utf-8");
             System.out.println("编码方式charset:"+charset+"  json data如下:");
             while( (jsonData = bufferedReader.readLine())!=null ){
                 System.out.println(jsonData);
