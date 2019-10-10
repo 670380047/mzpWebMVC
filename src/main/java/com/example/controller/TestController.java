@@ -11,6 +11,7 @@ import com.example.service.CheckUserService;
 import com.example.service.TestService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +31,7 @@ import java.util.Map;
  */
 @Controller
 public class TestController {
-
+    private static Logger logger = Logger.getLogger(TestController.class);
     @Autowired
     TestService testService;
     @Autowired
@@ -42,6 +43,9 @@ public class TestController {
         map.put("password",request.getParameter("password"));
         if(checkUserService.checkUser(map)){
             System.out.println("进入主页。。。。。。");
+            logger.debug("进入主页.............");
+//            logger.info("进入主页.............");
+            logger.warn("进入主页.............");
             //mybatis
             List<UserInfo> userInfoList = testService.selectUserInfoAll();
             //这里只是为了和分页共用一个也而多封了一层map,并且key就是"list"

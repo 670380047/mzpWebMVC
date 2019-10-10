@@ -123,6 +123,14 @@
       <artifactId>jackson-annotations</artifactId>
       <version>2.9.8</version>
     </dependency>
+
+    <!--阿里的fastJson-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.58</version>
+    </dependency>
+
     <!--=====================json相关end=====================-->
 
 
@@ -191,6 +199,13 @@
       <artifactId>annotations</artifactId>
       <version>RELEASE</version>
       <scope>compile</scope>
+    </dependency>
+
+    <!--httpClient相关-->
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.9</version>
     </dependency>
 
 

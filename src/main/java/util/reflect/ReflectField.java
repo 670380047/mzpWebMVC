@@ -130,7 +130,7 @@ public class ReflectField {
             MethodBeReflected methodBeReflected = (MethodBeReflected) mClazz.newInstance();
             //通过目标方法通过调用invoke()方法来调用间接调用目标方法本身。
             //因为setmName方法是静态方法，所以第一个参数可以输Class对象（mClazz），也可以是Class对象的实例（newInstance）
-            //          后面的参数一次是目标方法的形参。
+            //          后面的参数依次是目标方法的形参。
             nameMethod.invoke(methodBeReflected,"小毛");
             System.out.println("name:"+nameMethod.getName()+"  value:"+nameMethod.getDefaultValue());
 

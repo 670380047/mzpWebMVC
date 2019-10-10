@@ -6,7 +6,19 @@ package util.httpclient;/**
  * @Software: IntelliJ IDEA 2019.3.15
  */
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.HttpClientUtils;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.client.ClientHttpRequest;
@@ -32,16 +44,85 @@ import java.util.Map;
  * @date: 2019/8/29 11:12
  */
 public class HttpClient {
+    /*
+    日志 slf4j
+     */
+    private static Logger logger = LoggerFactory.getLogger(HttpClientUtils.class);
+
+    private static RequestConfig requestConfig = null;
+    public static final String HTTP_TYPE = "https";
+    static {
+        // 设置请求和传输超时时间
+        requestConfig = RequestConfig.custom().setSocketTimeout(30000).setConnectTimeout(30000).build();
+    }
+
     public static void main(String args[]){
-        try {
+
 //            doJson();
-            jsonRequest();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+//            jsonRequest();
+       String param = "{\"orderType\":\"test1234\",\"appKey\":\"123456\"}";
+       //请求地址开头需要加上   http://
+       String url = "http://localhost:8080/NmUserDataSyn/billing/plca/tingfuji";
+       JSONObject jsonParam = JSONObject.parseObject(param);
+       System.out.println("请求地址："+url+"\n请求参数："+jsonParam.toString());
+       JSONObject jsonResult = httpPost(url,jsonParam);
+       System.out.println("json返回结果"+jsonResult);
+    }
+
+
+    /***
+    * description: httpClient。 post请求访问（强烈推荐使用）
+    * @author maozp3
+    * @date: 16:50 2019/9/21
+    * @param: [url, jsonParam]
+    * @return com.alibaba.fastjson.JSONObject
+    */
+    public static JSONObject httpPost(String url, JSONObject jsonParam){
+        JSONObject jsonResult = null;
+        CloseableHttpClient httpClient =  null;
+        //两种创建 CloseableHttpClient 的方式 （一）
+//        httpClient = HttpClientBuilder.create().build();
+
+        //两种创建 CloseableHttpClient 的方式 （二）
+        httpClient = HttpClients.createDefault();
+        //创建post请求
+        HttpPost httpPost = new HttpPost(url);
+        //设置请求和传输的超时时间
+        httpPost.setConfig(requestConfig);
+        try {
+            if(jsonParam != null){
+                //解决中文乱码问题
+                StringEntity entity = new StringEntity(String.valueOf(jsonParam),"utf-8");
+                entity.setContentEncoding("utf-8");
+                entity.setContentType("application/json");
+                //设置请求体body
+                httpPost.setEntity(entity);
+                //设置请求头Headers
+                httpPost.setHeader("appId","1234");
+                httpPost.setHeader("appKey","123456");
+            }
+            //由客户端发起post请求，并返回结果
+            CloseableHttpResponse result = httpClient.execute(httpPost);
+            if(result.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
+                String str="";
+                // 读取服务器返回过来的json字符串数据
+                str = EntityUtils.toString(result.getEntity(),"utf-8");
+                // 把json字符串转换成json对象
+                jsonResult = JSONObject.parseObject(str);
+            }
+        } catch (Exception e) {
+            logger.error("post请求提交失败。url="+url);
             e.printStackTrace();
         }
+        return jsonResult;
     }
+
+
+
+
+
+
+
 
     /**
      * 普通客户端测试（服务器之间的通信可使用该方式） 方式一，更熟悉一点
