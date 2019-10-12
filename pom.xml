@@ -134,6 +134,15 @@
     <!--=====================json相关end=====================-->
 
 
+    <!--=====================aop额外包aspectj相关  start=====================-->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>1.9.2</version>
+    </dependency>
+
+    <!--=====================aop额外包aspectj相关  end=====================-->
+
     <!--spring相关包-->
     <dependency>
       <groupId>org.springframework</groupId>

@@ -2,10 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
-                        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+                        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!--启用spring的一些注解-->
     <!--<context:annotation-config/>-->
@@ -121,56 +121,29 @@
         <property name="resolveLazily" value="true"/>
     </bean>
 
+<!--===========================aop=============================-->
+    <!--实例化一个自定义的 日志切面-->
+    <bean id="logAspectType" class="com.example.aop.MyAspect"></bean>
 
+    <!--aop 开启aop代理。  否则aop不会生效-->
+    <aop:aspectj-autoproxy>
+    </aop:aspectj-autoproxy>
+    
+    <aop:config>
+        <!--定义切点-->
+        <aop:pointcut id="loggerPointCut" expression="execution(* com.example.service.*.checkUser(..))"/>
+        <!--定义使用日志切面-->
 
+        <aop:aspect id="logAspect" ref="logAspectType">
+            <!--设置around方式。引用切点，以及切点中的方法-->
+            <aop:around method="log" pointcut-ref="loggerPointCut"/>
+        </aop:aspect>
 
-    <!--<bean id="cronTest" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
-        <!--<property name="targetObject">-->
-            <!--&lt;!&ndash; 指定要定时执行的方法所在类，将定时任务定义成bean &ndash;&gt;-->
-            <!--<ref bean="cronService" />-->
-        <!--</property>-->
-        <!--<property name="targetMethod">-->
-            <!--&lt;!&ndash; 指定定时执行的方法 &ndash;&gt;-->
-            <!--<value>helloCron</value>-->
-        <!--</property>-->
-        <!--&lt;!&ndash;-->
-        <!--<property name="group">-->
-        <!--<value>file</value> DEFAULT-->
-        <!--</property>-->
-         <!--&ndash;&gt;-->
-        <!--<property name="concurrent">-->
-            <!--&lt;!&ndash; 指定目标封装为有状态的任务，有状态的任务不能并发执行(false,不能并发)，无状态的任务可并发执行(true) &ndash;&gt;-->
-            <!--<value>false</value>-->
-        <!--</property>-->
-    <!--</bean>-->
-
-    <!--&lt;!&ndash; 	每隔指定时间触发。定义触发时间 &ndash;&gt;-->
-    <!--<bean id="cronTestDoTime" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
-        <!--<property name="jobDetail">-->
-            <!--<ref bean="cronTest" />-->
-        <!--</property>-->
-        <!--<property name="cronExpression">-->
-            <!--&lt;!&ndash;  */10表示：从任意时刻开始，然后每10秒触发一次  &ndash;&gt;-->
-            <!--&lt;!&ndash; 如 12/10 （放在秒（第一个）的位置）就表示：从12秒开始，然后每10秒触发一次  &ndash;&gt;-->
-            <!--<value>*/10 * * * * ?</value>-->
-        <!--</property>-->
-    <!--</bean>-->
-
-
-
-    <!--&lt;!&ndash; 	启动工作 &ndash;&gt;-->
-    <!--&lt;!&ndash; 	总管理类 如果将lazy-init='false'那么容器一启动就会执行调度程序  &ndash;&gt;-->
-    <!--<bean id="sfb" lazy-init="true" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
-        <!--<property name="triggers">-->
-            <!--<list>-->
-                <!--&lt;!&ndash;<ref bean="doTime" />&ndash;&gt;-->
-                <!--<ref bean="cronTestDoTime"/>-->
-                <!--&lt;!&ndash; <ref bean="dataSynDoTime" />   &ndash;&gt;-->
-                <!--&lt;!&ndash; 	<ref bean="doItemTime" />  &ndash;&gt;-->
-                <!--&lt;!&ndash;    <ref bean="sendMsgTime"/> &ndash;&gt;-->
-                <!--&lt;!&ndash; 	<ref bean="scanTaskTime"/>  &ndash;&gt;-->
-            <!--</list>-->
-        <!--</property>-->
-    <!--</bean>-->
+            <!--定义使用计算时间切面-->
+        <aop:aspect id="timeAspect" ref="logAspectType">
+            <!--设置around方式。引用切点，以及切点中的方法-->
+            <aop:around method="spendTime" pointcut-ref="loggerPointCut"/>
+        </aop:aspect>
+    </aop:config>
 
 </beans>

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public class TestController {
     CheckUserService checkUserService;
 
     @RequestMapping("/welcome")
-    public String hello(HttpServletRequest request, Map map ){
+    public String login(HttpServletRequest request, Map map ){
         map.put("username",request.getParameter("username"));
         map.put("password",request.getParameter("password"));
         if(checkUserService.checkUser(map)){
@@ -91,5 +92,11 @@ public class TestController {
         model.addAttribute("userInfoList", userInfoList);
         model.addAttribute("loginMessage", "登陆成功");
         return "jsp/main";
+    }
+
+    @RequestMapping("testAspect")
+    @ResponseBody
+    public String testAspect(){
+        return "测试aop";
     }
 }
