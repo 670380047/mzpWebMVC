@@ -12,7 +12,7 @@
     <title>jsp首页</title>
 </head>
 <body>
-欢迎登陆主页
+欢迎用户：${sessionScope.get("messageMap").get("message")} 登陆主页
 
 <table align="center" border="1" cellspacing="0">
     <tr>

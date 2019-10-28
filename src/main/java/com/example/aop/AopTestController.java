@@ -22,6 +22,7 @@ public class AopTestController {
     @RequestMapping("aopTest")
     @ResponseBody
     public String aopTest(){
+        System.out.println("aop的@pointcut测试");
         return "aop的@pointcut测试";
     }
 

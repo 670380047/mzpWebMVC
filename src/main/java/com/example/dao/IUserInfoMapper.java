@@ -16,4 +16,6 @@ import java.util.Map;
 public interface IUserInfoMapper {
      List<UserInfo> selectUserInfoAll();
      List<Map<String,Object>>  test(long id);
+
+     int insertUserInfo(UserInfo userInfo);
 }

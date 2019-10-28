@@ -66,6 +66,8 @@ public class ListStreamTest {
         streamList.stream().sorted().forEach(num -> System.out.print(num+" "));
         System.out.println("\nsorted(自定义比较器)：排序.这里我期望“后面的数a比前面的数b小”，所以是降序");
         streamList.stream().sorted( (a,b)->a<=b?1:-1  ).forEach(num -> System.out.print(num+" "));
+        System.out.println("\n先去重，再排序。sorted(自定义比较器)：排序.这里我期望“后面的数a比前面的数b小”，所以是降序");
+        streamList.stream().distinct().sorted( (a,b)->a<=b?1:-1  ).forEach(num -> System.out.print(num+" "));
         System.out.println("\nlimit(n):保留前n个数");
         streamList.stream().limit(2).forEach(num -> System.out.print(num+" "));
         System.out.println("\nskip(n):跳过前n个数");
@@ -94,9 +96,9 @@ public class ListStreamTest {
         listFromMap.stream().forEach(e-> System.out.print(e+" ")); //打印list中的元素
         System.out.print("\nlistFromMap="+listFromMap);  //打印list中的元素
 
-        //将list转为map
+        //将list转为set
         Set setFromList = Arrays.stream(stringlist).collect(Collectors.toSet());
-        System.out.println();
+        System.out.println("\n将数组先变为list，再把list变为set="+setFromList);
  
     }
 }

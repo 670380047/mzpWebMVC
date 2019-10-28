@@ -15,8 +15,9 @@
         <property name="location" value="classpath:jdbc.properties"/>
     </bean>
 
-    <!--destroy-method="close"的作用是当数据库连接不使用的时候，就把该连接重新放到数据池中，方便下次使用调用。-->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+    <!--destroy-method="close"的作用是当数据库连接不使用的时候，就把该连接重新放到数据池中，方便下次使用调用。
+        但是不确定是不是名字叫close这个方法的时候，最好把该项去掉。万一叫closeXXX什么的呢。  去掉之后，让程序自己选择关闭的方法，不去指定-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="${jdbc.driver}"/>
         <property name="jdbcUrl" value="${jdbc.url}"/>
         <property name="user" value="${jdbc.username}"/>

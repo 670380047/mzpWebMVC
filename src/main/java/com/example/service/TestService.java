@@ -7,8 +7,11 @@ package com.example.service;/**
  */
 
 import com.example.dao.IUserInfoMapper;
+import com.example.model.UserInfo;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +23,10 @@ import java.util.List;
  */
 @Service
 public class TestService {
+    private static Logger logger = Logger.getLogger(TestService.class);
+    @Autowired
+    IUserInfoMapper userInfoMapper;
+
     @Autowired
     IUserInfoMapper userInfoDao;
 
@@ -34,5 +41,21 @@ public class TestService {
         List list = userInfoDao.test(4);
         System.out.println("list是null还是0？ "+list.toString());
         return list ;
+    }
+
+
+    @Transactional
+    public int insertUserInfo(UserInfo userInfo){
+        int flag;
+        try {
+            flag = userInfoMapper.insertUserInfo(userInfo);
+            System.out.println("userInfo对应的自增长的ID="+userInfo.getId());
+            int n = 1/0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("数据插入错误。。。。。数据回滚");
+            return 0;
+        }
+        return  flag;
     }
 }

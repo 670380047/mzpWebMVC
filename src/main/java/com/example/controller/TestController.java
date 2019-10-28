@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -38,23 +38,29 @@ public class TestController {
     @Autowired
     CheckUserService checkUserService;
 
+    HttpSession session;
+
     @RequestMapping("/welcome")
     public String login(HttpServletRequest request, Map map ){
         map.put("username",request.getParameter("username"));
         map.put("password",request.getParameter("password"));
+        session = request.getSession();
+        session.setAttribute("LoginMessageMap",map);
         if(checkUserService.checkUser(map)){
             System.out.println("进入主页。。。。。。");
             logger.debug("进入主页.............");
 //            logger.info("进入主页.............");
             logger.warn("进入主页.............");
             //mybatis
-            List<UserInfo> userInfoList = testService.selectUserInfoAll();
+           /*
+           List<UserInfo> userInfoList = testService.selectUserInfoAll();
             //这里只是为了和分页共用一个也而多封了一层map,并且key就是"list"
             Map<String,List<UserInfo>> mapList = new HashMap<>();
             mapList.put("list", userInfoList);
             map.put("userInfoList", mapList);   //未完成，未向页面传值
             map.put("message","登陆成功");
-            return "jsp/main";
+            */
+            return "redirect:getAll?start=1";
         }
         map.put("message","用户名密码不正确");
         return "jsp/login";
@@ -93,6 +99,17 @@ public class TestController {
         model.addAttribute("loginMessage", "登陆成功");
         return "jsp/main";
     }
+
+
+    @RequestMapping("insert")
+    public String insert(UserInfo userInfo){
+        System.out.println(userInfo);
+        System.out.println("测试获取自增长序列(sql执行之前)：ID="+userInfo.getId());
+        testService.insertUserInfo(userInfo);
+        System.out.println("测试获取自增长序列（sql执行之后）：ID="+userInfo.getId());
+        return "redirect:getAll";
+    }
+
 
     @RequestMapping("testAspect")
     @ResponseBody

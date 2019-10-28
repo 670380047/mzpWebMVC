@@ -153,7 +153,7 @@ public class HttpClient {
             ClientHttpResponse response = request.execute();
             //4.得到响应体的编码方式
             Charset charset = response.getHeaders().getContentType().getCharset();
-            //5.得到响应体的内容.将响应体的内容作为输入流 （InputStream是所有字节输入流动父类）
+            //5.得到响应体的内容.将响应体的内容作为输入流 （InputStream是所有字节输入流的父类）
             inputStream = response.getBody();
             //6.将字节输入流InputStream通过InputStreamReader()转换为字符输入流BufferedReader。
             // 因为转换为字符输入流BufferedReader的读取效率更高，可以从数据源一行一行的读数据

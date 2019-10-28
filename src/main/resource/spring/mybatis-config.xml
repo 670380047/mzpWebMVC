@@ -38,13 +38,19 @@
         <!--</plugin>-->
     <!--</plugins>-->
 
-    <!--<plugins>-->
-        <!--<plugin interceptor="com.github.pagehelper.PageHelper">-->
-            <!--&lt;!&ndash;  <property name="dialect" value="oracle"/> &ndash;&gt;-->
-            <!--<property name="pageSizeZero" value="true"/>-->
-            <!--&lt;!&ndash; 开启分页合理化参数 &ndash;&gt;-->
-            <!--<property name="reasonable" value="true"/>-->
-            <!--<property name="supportMethodsArguments" value="false"/>-->
-        <!--</plugin>-->
-    <!--</plugins>-->
+    <plugins>
+        <!--由于引入的插件是5.1.2版本！！   有坑存在！！
+        所以：注意这里要写成PageInterceptor, 5.0之前的版本都是写PageHelper, 5.0之后要换成PageInterceptor
+          把 com.github.pagehelper.PageHelper  变为： com.github.pagehelper.PageInterceptor
+        -->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+              <!--<property name="dialect" value="mysql"/>-->
+            <!--在5.0以后的版本，使用了helperDialect代替了原来的dialect属性。  而且4.0之后，方言可以不用写，自动会识别-->
+            <property name="helperDialect" value="mysql" />
+            <property name="pageSizeZero" value="true"/>
+            <!-- 开启分页合理化参数 -->
+            <property name="reasonable" value="true"/>
+            <property name="supportMethodsArguments" value="false"/>
+        </plugin>
+    </plugins>
 </configuration>

@@ -10,4 +10,33 @@
     <select id="test" resultType="map" parameterType="java.lang.Long">
         select * from user_info where id = #{id} and  my_age = #{routeId}
     </select>
+
+
+    <!--useGeneratedKeys="true"  keyProperty="需要返回的主键"  用于使用jdbc的getGeneratedKeys 来获取自增长的主键-->
+    <insert id="insertUserInfo" parameterType="com.example.model.UserInfo"  useGeneratedKeys="true" keyProperty="id"  >
+        insert into user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="myAge != null">
+                my_age,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                #{username},
+            </if>
+            <if test="password != null">
+                #{password},
+            </if>
+            <if test="myAge != null">
+                #{myAge},
+            </if>
+        </trim>
+    </insert>
+
 </mapper>
