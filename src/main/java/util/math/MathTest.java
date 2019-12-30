@@ -33,7 +33,7 @@ public class MathTest {
 
     /**
      * @Author maozp3
-     * @Description: 计算某个数的阶乘
+     * @Description: 计算某个数的阶乘.
      * @Date: 21:13 2019/11/30
      * @Param [a]
      * @return long
