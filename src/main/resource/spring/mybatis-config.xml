@@ -39,7 +39,7 @@
     <!--</plugins>-->
 
     <plugins>
-        <!--由于引入的插件是5.1.2版本！！   有坑存在！！
+        <!--由于引入的插件是5.1.2版本！！   有坑存在！！  @2019-12-30
         所以：注意这里要写成PageInterceptor, 5.0之前的版本都是写PageHelper, 5.0之后要换成PageInterceptor
           把 com.github.pagehelper.PageHelper  变为： com.github.pagehelper.PageInterceptor
         -->

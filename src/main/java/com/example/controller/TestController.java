@@ -72,7 +72,7 @@ public class TestController {
     public String getUserInfoList(Model model,@RequestParam(value = "start",defaultValue = "0") int start,
                                  @RequestParam(value = "size",defaultValue = "3") int size){
         System.out.println("进入mybatis测试。。。");
-        //开启分页(目前尚未配置)
+        //开启分页
         PageHelper.startPage(start, size);
         List<UserInfo> userInfoList = testService.selectUserInfoAll();
         //放入pageInfo

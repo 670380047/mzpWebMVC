@@ -18,17 +18,17 @@ public class MyAspect {
     ThreadLocal<Long> spendTime = new ThreadLocal<>();
 
     public Object log(ProceedingJoinPoint joinPoint) throws Throwable {
-        System.out.println("=================切面启动：日志=================");
+        System.out.println("=================配置方式切面启动：日志=================");
         System.out.println("mzpLog:"+joinPoint.getSignature().getName());
         //这个joinPoint.proceed()是用于主业务核心代码。
         Object object = joinPoint.proceed();
         System.out.println("mzpLog:"+joinPoint.getSignature().getName());
-        System.out.println("=================切面结束：日志=================");
+        System.out.println("=================配置方式切面结束：日志=================");
         return object;
     }
 
     public Object spendTime(ProceedingJoinPoint joinPoint) throws Throwable {
-        System.out.println("=================切面启动：计算时间=================");
+        System.out.println("=================配置方式切面启动：计算时间=================");
         Long startTime = System.currentTimeMillis();
         spendTime.set(startTime);
         //获取主业务中方法处的入参
@@ -43,12 +43,12 @@ public class MyAspect {
         System.out.println("参数是："+args.toString());
         Long resultTime = System.currentTimeMillis()-spendTime.get();
         System.out.println(joinPoint.getSignature().getName()+"方法耗时："+resultTime+"毫秒");
-        System.out.println("=================切面结束：计算时间=================");
+        System.out.println("=================配置方式切面结束：计算时间=================");
         return object;
     }
 
     public Object spendTimeAnnotion(ProceedingJoinPoint joinPoint) throws Throwable {
-        System.out.println("=================切面启动：计算时间=================");
+        System.out.println("=================配置方式切面启动：计算时间=================");
         Long startTime = System.currentTimeMillis();
         spendTime.set(startTime);
         Object object = joinPoint.proceed();
@@ -56,7 +56,7 @@ public class MyAspect {
         System.out.println("参数是："+args);
         Long resultTime = System.currentTimeMillis()-spendTime.get();
         System.out.println(joinPoint.getSignature().getName()+"方法耗时："+resultTime+"毫秒");
-        System.out.println("=================切面结束：计算时间=================");
+        System.out.println("=================配置方式切面结束：计算时间=================");
         return object;
     }
 }
