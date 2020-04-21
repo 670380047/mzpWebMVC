@@ -87,6 +87,7 @@ public class ListStreamTest {
         map.put("name","mzp");
         map.put("age",24);
         map.put("sex","男");
+        Integer a = 0; a.compareTo(a);
         System.out.println("\n遍历map：");
         map.entrySet().stream().forEach(entry-> System.out.print(entry+"  "));
 //        map.entrySet().stream().forEach(System.out::println);
