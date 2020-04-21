@@ -15,7 +15,11 @@ public class TestMyFunInterface {
 
     // 需求：将给定的字符串转换为大写,并且去除首位空格。
 
-    /** 方法说明：1  2  3
+    /**  （这方法就是个处理字符串的API,就好比stream中的foreach方法模板API，我的函数式接口MyFunInterface相当于foreach的Consumer，
+     *      我的getValue方法就相当于函数式接口Consumer的accept方法）
+     *
+     *
+     * 方法说明：1  2  3
      * 1.这个方法的作用是给定一个字符串str。
      * 2.然后再给定一个函数式接口，函数式接口有一个方法getValue(T value)去处理这个str。至于怎么处理，则没有给出，需要去实现，看3 。
      * 3.可以通过匿名内部类，或者lambda表达式 去给出函数式接口中的抽象方法他的具体的处理动作。
@@ -37,7 +41,7 @@ public class TestMyFunInterface {
         System.out.println(testStr);
 
 
-        // 用匿名内部类的方式
+        // 用匿名内部类的方式（转大写，去空格）
         String resultStr2 = strHandler(testStr, new MyFunInterface<String>() {
             @Override
             public String getValue(String value) {
@@ -46,8 +50,11 @@ public class TestMyFunInterface {
         });
         System.out.println("匿名内部类的方式:"+resultStr2);
 
-        // 用lambda表达式的方式
+        // 用lambda表达式的方式（转大写，去空格）
         String resultStr = strHandler(testStr,(str)->str.toUpperCase().trim());
         System.out.println("lambda的方式:"+resultStr);
+
+        String resultStr3 = strHandler(testStr,(str)->str+"我想干嘛就干嘛");
+        System.out.println("lambda的方式:"+resultStr3);
     }
 }
