@@ -163,7 +163,7 @@ public class DateUtil {
      * @Param [formatedDateTime, delayMonth] formatedDateTime为指定的时间。  delayMonth为需要延期的月份数。
      * @return java.lang.String
      **/
-    public  Date getdelayDateOfCurrentMonth(Date formatedDateTime,Long delayMonth){
+    public  Date getDelayDateOfCurrentMonth(Date formatedDateTime,Long delayMonth){
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
