@@ -20,7 +20,9 @@ public class TestFunInterface2 {
 
 
         long result = getResult(20,30,(t1,t2)->t1*t2);
-        System.out.println("lambda的方式:"+result);
+        System.out.println("lambda的方式(相乘):"+result);
+        long result3 = getResult(20,30,(t1,t2)->t1+t2);
+        System.out.println("lambda的方式(相加):"+result3);
 
 
         long result1 = getResult(20, 30, new FunInterface2<Long, Long>() {
@@ -29,6 +31,6 @@ public class TestFunInterface2 {
                 return t1*t2;
             }
         });
-        System.out.println("匿名内部类的方式:"+result1);
+        System.out.println("匿名内部类的方式(相乘):"+result1);
     }
 }
