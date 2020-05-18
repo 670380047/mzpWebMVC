@@ -15,6 +15,7 @@ import java.util.concurrent.ForkJoinTask;
 import java.util.stream.LongStream;
 
 /**
+ * java8 并行流.  (并行流底层就是fork/join模式)
  * @Description:
  * @Author maozp3
  * @Date: 2020/5/8 13:38
