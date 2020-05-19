@@ -22,8 +22,11 @@ import java.util.concurrent.atomic.AtomicInteger;
  *          （字节流用于操作非文本文件，如：.avi .mp3 .jpg）
  *          （字符流用于操作文本文件，如：.java .txt）
  *      3.按角色不同：节点流、处理流
+ *          “节点流” 用来打通通道。节点流只有四个。FileInputStream、FileOutputStream、 FileReader、FileWriter
+ *          “处理流” 用来包装节点流。处理流有很多个。来实现某些功能：比如缓冲流提高效率、对象流进行序列化、转换流、打印流等
  *
  * 二、IO流的结构体系（竖着看）
+ *      只要涉及数据传输，就要创建节点流。  节点流可以被多种处理流包装
  *  抽象基类            节点流                 缓冲流(处理流中的一种)
  *  InputStream         FileInputStream     BufferedInputStream
  *  OutputStream        FileOutputStream    BufferedOutputStream
@@ -447,6 +450,7 @@ public class TestIo {
         } finally {
             /**
              * 关闭缓冲流即可，缓冲流会自动关闭节点流
+             *  只需要关闭最后一个处理流就可以了。他会关闭前面所有的，包括节点流
              */
             if(bufferedInputStream != null){
                 try {
@@ -526,6 +530,7 @@ public class TestIo {
         } finally {
             /**
              * 5.关闭流. 只用关闭缓冲流就可以了，缓冲流会自动关闭节点流
+             *  只需要关闭最后一个处理流就可以了。他会关闭前面所有的，包括节点流
              */
             try {
                 if (bufferedInputStream != null){
@@ -586,7 +591,8 @@ public class TestIo {
             e.printStackTrace();
         } finally {
             /**
-             *5.关闭流。 只需要关闭缓冲力即可。因为缓冲流会关闭节点流
+             *5.关闭流。 只需要关闭缓冲流即可。因为缓冲流会关闭节点流
+             *  只需要关闭最后一个处理流就可以了。他会关闭前面所有的，包括节点流
              */
             try {
                 if(bufferedReader != null){
