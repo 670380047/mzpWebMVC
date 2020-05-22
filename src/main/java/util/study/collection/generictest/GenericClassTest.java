@@ -1,4 +1,4 @@
-package util.study.generictest;
+package util.study.collection.generictest;
 /**
  * @version: java version 1.7+
  * @Author : mzp
