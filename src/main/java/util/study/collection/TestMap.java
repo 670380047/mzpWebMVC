@@ -32,7 +32,7 @@ import java.util.*;
  *                  2.1.1 HashTable是线程安全的,效率低。
  *                  2.1.2 HashTable不允许使用null作为key或者value  （HashMap允许key或value为null）
  *              2.3 Properties: 是HashTable的子类。  他的key和value都是String类型的： username=root
- *      3 TreeMap: 类比TreeSet,可以对key定义排序规则。 key的存相同类型的数据。不能既有String又有Integer
+ *      3 TreeMap: 类比TreeSet,可以对key定义排序规则。 key只能存相同类型的数据。不能既有String又有Integer
  *              3.1 完整排序（Comparable接口）
  *                  3.1.1 添加到TreeSet中的元素需要实现Comparable接口的 compareTo(Object o)方法
  *              3.2 定制排序（Comparator接口）

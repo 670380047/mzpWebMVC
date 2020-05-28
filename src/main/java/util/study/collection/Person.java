@@ -17,14 +17,21 @@ import java.util.Objects;
  * @Date: 2020/4/20 14:40
  */
 public class Person implements Comparable{
-    private String name;
-    private Integer age;
+    public String name;
+    public Integer age;
 
     public Person(){}
 
     public Person(String name, int age) {
         this.name = name;
         this.age = age;
+    }
+
+    public void eat(){
+        System.out.println(this.getClass().getName()+":吃饭,我是Person类");
+    }
+    public void run(){
+        System.out.println(this.getClass().getName()+":奔跑,我是Person类");
     }
 
     public String getName() {
