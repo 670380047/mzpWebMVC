@@ -22,7 +22,7 @@ import java.util.List;
  *                1.2 java.util.LinkedList：采用“链表”结构存储数据（双向链表）。链表结构用前后节点索引来连接各个元素
  *                      优点：增加和删除效率高，只需要维护前后节点就好了
  *                      缺点：查询效率低，要遍历
- *                1.3 java.util.Vector(不常用)
+ *                1.3 java.util.Vector(不常用): 用法和ArrayList一样，但是Vector是线程安全的
  *            2.java.util.Set 接口: 无序，不允许重复。
  *
  *  ArrayList的常用方法:
@@ -119,6 +119,8 @@ public class TestList {
         list.add("bb");
         list.add("cc");
         System.out.println(list);
+
+        System.out.println("list.get(index):"+list.get(1));
 
         list.addFirst("mzpFirst");
         list.addLast("mzpLast");

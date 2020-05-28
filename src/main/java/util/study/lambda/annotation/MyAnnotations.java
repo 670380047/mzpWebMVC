@@ -15,6 +15,7 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 
 /**
+ * 可重复注解的容器。
 *  还需要一个注解的容器。作用于可重复注解上
 * @Author maozp3
 * @Date: 9:51 2020/5/11

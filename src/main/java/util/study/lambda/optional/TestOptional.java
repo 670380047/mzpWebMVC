@@ -36,8 +36,8 @@ public class TestOptional {
      */
     @Test
     public void test0(){
-//        Optional<Man> op = Optional.ofNullable(new Man());    // 江疏影
-        Optional<Man> op = Optional.ofNullable(null);       // 江莱
+        Optional<Man> op = Optional.ofNullable(new Man());    // 江疏影
+//        Optional<Man> op = Optional.ofNullable(null);       // 江莱
         String name = getGoddessName(op);
         System.out.println(name);
     }

@@ -17,6 +17,7 @@ import static java.lang.annotation.ElementType.*;
 
 /**
 *  自定义的可重复注解，拥有一个属性 value()。   value这个属性的名字是固定的，就是value
+ *  可重复注解的作用：一个注解可以在同一个地方使用两次。
  *  1. 可重复注解需要用 @Repeatable(容器类.class)  来声明一下
 * @Author maozp3
 * @Date: 9:51 2020/5/11
