@@ -27,7 +27,7 @@ public class IsAlive extends Thread{
     @Override
     public void run() {
         super.run();
-        System.out.println("线程启动中=======是否处于活动状态："+this.isAlive());
+        System.out.println("run方法中：线程启动中=======是否处于活动状态："+this.isAlive());
         System.out.println("线程"+currentThread().getName()+"启动了");
     }
 }

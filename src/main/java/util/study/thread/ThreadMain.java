@@ -20,7 +20,7 @@ public class ThreadMain {
         //start()方法是通知“线程规划器”，该线程已经准备就绪，
         // 等待调用线程对象的run()方法（这个过程就是让系统安排一个时间来调用Thread中的run()方法）。具有异步执行的效果
         myThread.start();
-        //如果直接调用run()方法，那么次线程对象并不交给“线程规划器”。而是由main主线程来调用run()方法。属于同步执行。
+        //如果直接调用run()方法，那么此线程对象并不交给“线程规划器”。而是由main主线程来调用run()方法。属于同步执行。
 //        myThread.run();
         ThreadMain.threadTest();
         System.out.println("运行结束");
