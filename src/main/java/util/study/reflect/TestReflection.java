@@ -48,6 +48,7 @@ import java.util.Properties;
  * 二、类加载器读取配置文件Properties（对比原始方式）
  * 三、在运行时创建对象的实例
  *      类名.class方式。省去强转
+ *      随便传进来一个类，获取他的类型名
  * 四、获取类的构造器Constructor
  * 五、获取类的属性Field
  * 六、获取类的方法Method
@@ -156,6 +157,8 @@ public class TestReflection {
     /**
      * 三、在运行时创建对象的实例
      *      类名.class方式。省去强转
+     *      随便传进来一个类，获取他的类型名
+     *
      */
     @Test
     public void test4(){
@@ -171,6 +174,11 @@ public class TestReflection {
              */
            Person person =  clazz.newInstance();
             System.out.println(person);
+            /**
+             * 获取这个类的类型. 随便传进来一个类，获取他的类型名
+             */
+            String type = Person.class.getTypeName();
+            System.out.println(type);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

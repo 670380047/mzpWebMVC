@@ -1,4 +1,4 @@
-package util.reflect;
+package util.study.reflect.old;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -12,10 +12,10 @@ import java.lang.reflect.Type;
  * @File : ReflectField
  * @Software: IntelliJ IDEA 2019.3.15
  */
-public class ReflectField {
+public class TestReflect {
     public static void main(String[] args){
-        //fieldTest();
-        methodTest();
+        fieldTest();
+//        methodTest();
     }
 
     /**
