@@ -47,7 +47,7 @@ public class MyAspect {
         return object;
     }
 
-    public Object spendTimeAnnotion(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object spendTimeAnnotation(ProceedingJoinPoint joinPoint) throws Throwable {
         System.out.println("=================配置方式切面启动：计算时间=================");
         Long startTime = System.currentTimeMillis();
         spendTime.set(startTime);

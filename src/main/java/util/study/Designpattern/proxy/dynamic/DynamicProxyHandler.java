@@ -23,7 +23,7 @@ public class DynamicProxyHandler implements InvocationHandler {
     private Object target;
 
     /**
-     * 2.生成动态代理对象。 入参要生成的那个对象的实例
+     * 2.生成动态代理对象。 入参是要生成的那个对象的实例
      * @param target
      * @return
      */

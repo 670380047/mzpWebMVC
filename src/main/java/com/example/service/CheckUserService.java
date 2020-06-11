@@ -19,6 +19,11 @@ import java.util.Map;
  * @Date: 2019/4/28 14:40
  */
 @Service
+    // 声明周期默认是单例模式singleton。  prototype是原型，每次调用都会生成一个bean实例
+//@Scope(value = "prototype")
+    // 这个bean是否懒加载。默认是true(即：只要加了这个注解，就会懒加载，主要就是为了加快容器启动时间)。
+    // 懒加载就是：容器启动的时候不加载，调用的时候才加载
+//@Lazy(value = false)
 public class CheckUserService {
     private static Logger logger = LoggerFactory.getLogger(CheckUserService.class);
 

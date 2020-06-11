@@ -132,8 +132,8 @@
     <aop:config>
         <!--定义切点-->
         <aop:pointcut id="loggerPointCut" expression="execution(* com.example.service.*.checkUser(..))"/>
-        <!--定义使用日志切面-->
 
+        <!--定义使用日志切面-->
         <aop:aspect id="logAspect" ref="logAspectType">
             <!--设置around方式。引用切点，以及切点中的方法-->
             <aop:around method="log" pointcut-ref="loggerPointCut"/>

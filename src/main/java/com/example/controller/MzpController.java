@@ -97,7 +97,7 @@ public class MzpController {
     }
 
     @RequestMapping(value = "/model")
-    //除了使用ModelAndView方式外。还可以使用Map、Model和ModelMap来向前台页面创造
+    //除了使用ModelAndView方式外。还可以使用Model、Map和ModelMap来向前台页面传值
     //　　使用后面3种方式，都是在方法参数中，指定一个该类型的参数.  效果一样，一般使用map就可以了
     public ModelAndView modelTest(Model model, Map map, ModelMap modelMap){
         ModelAndView mv = new ModelAndView();

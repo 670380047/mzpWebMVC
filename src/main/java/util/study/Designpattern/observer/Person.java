@@ -9,5 +9,6 @@ package util.study.Designpattern.observer;
  * @Software: IntelliJ IDEA 2019.3.15
  */
 public interface Person {
-    void getMessage();
+    String name = "123";
+    void getMessage(String message);
 }

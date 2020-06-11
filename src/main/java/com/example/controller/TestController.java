@@ -15,9 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -40,8 +38,20 @@ public class TestController {
 
     HttpSession session;
 
-    @RequestMapping("/welcome")
-    public String login(HttpServletRequest request, Map map ){
+    /**
+     * 记录Form表单传输，后台接收的几种方式
+     * 1. HttpServletRequest request 中，用request.getParameter("username")获取、
+     * 2. @RequestParam Map map 中，使用@RequestParam
+     * 3. 直接使用"包含form表单的中字段"的实体类。例如这里的 UserInfo类
+     * 4. 直接定义基本数据类型/包装类型：   1、提交表单的name和参数的名称必须相同。2、严格区分大小写
+     * @param request
+     * @param map
+     * @param username
+     * @param password
+     * @return
+     */
+    @RequestMapping(value = "/welcome",method = RequestMethod.POST)
+    public String login(HttpServletRequest request, @RequestParam Map map,  UserInfo userInfo, String username, String password){
         map.put("username",request.getParameter("username"));
         map.put("password",request.getParameter("password"));
         session = request.getSession();

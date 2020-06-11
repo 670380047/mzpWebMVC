@@ -19,7 +19,7 @@
     document.write("<p>This is a paragraph.</p>");
 </script>
 <form action="welcome" method="post">
-    用户名111：<input type="text" name="username"><br/>
+    用户名123：<input type="text" name="username"><br/>
     密码：<input type="password" name="password"> <br/> <br/>
     <input type="submit" name="登陆" style="margin-left:65px;"  >
     <p>
