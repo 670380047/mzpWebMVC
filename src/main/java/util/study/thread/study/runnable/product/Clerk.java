@@ -19,6 +19,7 @@ public class Clerk {
     private  int product;
 
     public Clerk() {
+        System.out.println("clerk父类");
     }
 
     public Clerk(int product) {

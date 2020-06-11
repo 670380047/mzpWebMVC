@@ -27,7 +27,9 @@ import java.util.*;
  *                  1.1.1 LinkedHashMap在存储位置上同样是无序的，同样采用hash表。 只是多了一个链表来维护前后关系，所以给人的感觉是有序的
  *                  1.1.2 效率对比： HashMap 增、删等修改操作效率高,只需要判断HashCode和equals方法即可。
  *  *                        LinkedHashMap遍历效率高，因为有链表方便查找相邻元素。 增删操作效率相对低，因为多了对链表的处理。
- *      2 HashTable: 目前基本不用了。之所以存在，因为他还有一个子类Properties
+ *      2 HashTable: 他是锁了哈希表，任何操作进来都是串行的，效率很低。
+ *                  目前基本不用了。之所以存在，因为他还有一个子类Properties
+ *                  保证线程安全可以使用ConcurrentHashMap,采用的是锁分段机制。--详见TestConcurrentHashMap类
  *              2.1 与HashMap相比：
  *                  2.1.1 HashTable是线程安全的,效率低。
  *                  2.1.2 HashTable不允许使用null作为key或者value  （HashMap允许key或value为null）
@@ -256,7 +258,7 @@ public class TestMap {
          * 2.通过load()方法加载属性文件。 入参是一个节点流：字节输入节点流
          */
         try {
-            properties.load(new FileInputStream("src/main/resource/jdbc.properties"));
+            properties.load(new FileInputStream("src/main/resource/TestJdbc.properties"));
 
             /**
              * 3. 通过 getProperty(String key) 通过key来获取对应的value值

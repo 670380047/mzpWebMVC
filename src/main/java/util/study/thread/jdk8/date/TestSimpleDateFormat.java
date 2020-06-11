@@ -38,7 +38,10 @@ public class TestSimpleDateFormat {
         // 用来保存结果
         List<Future<Date>> resultList = new ArrayList<>();
         /**
-         * 创建线程池
+         * 创建指定数量的线程池
+         * Executors.newFixedThreadPool(10)
+         *  创建一个指定工作线程数量的线程池。每当提交一个任务就创建一个工作线程，
+         *  如果工作线程数量达到线程池初始的最大数，则将提交的任务存入到池队列中。
          */
         ExecutorService callablePools = Executors.newFixedThreadPool(10); // 创建拥有10个线程的线程池
         try {

@@ -20,6 +20,12 @@ package util.study.thread.study.runnable.product;/**
  */
 public class TestProducer {
     public static void main(String[] args) {
+        /**
+         * 与本问题无关。
+         * 为了测试继承关系。调用子类构造方法是，他会往上先依次调用父类的构造方法。从上往下来实例化
+         */
+//        Test test = new Test();
+
         Clerk clerk = new Clerk();
         Producer producerA = new Producer(clerk);
         Customer customerA = new Customer(clerk);

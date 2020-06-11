@@ -119,11 +119,11 @@ public class TestCollections {
             public int compare(String a, String b) {
                 if(a.charAt(0) <= b.charAt(0)){
                     // 含义不同。在max或min这里你返回1，就证明他是大的
-            // 返回1： 在max查找最大值的时候，这里是大于的意思。 在sort方法排序的时候是：表示满足，“不需要调换位置”
+            // 返回1： 在max查找最大值的时候，这里是大于的意思（看max的源码）。 在sort方法排序的时候是：表示满足，“不需要调换位置”
                     return 1;
                 }else{
                     // 含义不同。在max或min这里你返回-1，就证明他是小的
-            // 返回-1： 在max查找最大值的时候，这里是小于的意思。在sort方法排序的时候是：表示不满足，“需要调换位置”
+            // 返回-1： 在max查找最大值的时候，这里是小于的意思（看max的源码）。在sort方法排序的时候是：表示不满足，“需要调换位置”
                     return -1;
                 }
             }

@@ -12,6 +12,7 @@ import java.lang.reflect.Proxy;
 
 /**
  * 动态代理：需要实现 InvocationHandler接口  （在反射包下面）
+ *      还要一个关键类：Proxy类，用来Proxy.newProxyInstance
  * @Description:
  * @Author maozp3
  * @Date: 2020/6/5 16:48

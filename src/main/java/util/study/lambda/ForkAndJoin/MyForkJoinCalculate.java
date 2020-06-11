@@ -11,7 +11,7 @@ import java.util.concurrent.RecursiveTask;
 /**
  * fork/join模式。 线程拆分合并模式（样例）。（采用的是任务窃取模式：当一个线程队列空闲的时候，他会去“偷”另一个线程的任务来执行。
  *      从而避免一个线程A因为前期阻塞了一会，耽误了时间，而此时其他线程B、C...跑完了，已经处于空闲位置状态，而线程A还是十分忙碌。  窃取模式就会让B和C取“偷”A的任务过来做）
- *  需要继承 RecursiveAction 或 RecursiveTask。 前者的compute方法没有返回值，后这有
+ *  需要继承 RecursiveAction 或 RecursiveTask。 前者的compute方法没有返回值，后者有
  * @Description:
  * @Author maozp3
  * @Date: 2020/5/8 13:19

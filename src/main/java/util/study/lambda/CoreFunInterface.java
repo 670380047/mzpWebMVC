@@ -55,7 +55,7 @@ public class CoreFunInterface {
     }
 
     /**
-     * supplier<T> 供给型接口
+     * Supplier<T>: 供给型接口
      *      T get();
      */
     @Test
