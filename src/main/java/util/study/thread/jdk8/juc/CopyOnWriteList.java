@@ -17,7 +17,9 @@ import java.util.concurrent.Executors;
 /**
  * CopyOnWriteArrayList  写入并复制
  *
- * 一、这个是测试线程池的写法的。与本类无关
+ * 一、这个是测试线程池的写法的、并且测试把List、Map、set转换为同步。与本类无关
+ *      Collections工具类中的synchronizedList 、 synchronizedMep 、synchronizedSet等
+ *      都可以把传入的List 、 Map 、Set中的方法加上一个synchronized关键字，来保证线程安全
  * 二、测试CopyOnWriteArrayList  写入并复制
  *      缺点：添加操作多时，效率非常低，因为每次添加都会进行复制，开销非常大。
  *      优点：并发迭代操作多时，可以使用。
