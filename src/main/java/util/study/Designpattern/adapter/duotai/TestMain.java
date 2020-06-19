@@ -28,5 +28,24 @@ public class TestMain {
          */
        testClass2.say();
 //       testClass2.wangFly();
+
+        System.out.println("--------------测试访问修饰符的继承关系---------------");
+        /**
+         * 测试继承关系
+         */
+        TestClass2 testClass = new TestClass2();
+        testClass.setName("张三");
+        testClass.setAge(18);
+        testClass.setSex("男");
+        testClass.setScore(150);
+        System.out.println("直接访问父类的public变量："+testClass.name);
+        System.out.println("通过构造器访问父类的public变量："+testClass.name);
+        System.out.println("直接访问父类的protected变量："+testClass.getScore());
+        System.out.println("通过构造器访问父类的protected变量："+testClass.getScore());
+        System.out.println("直接访问父类的默认变量："+testClass.sex);
+        System.out.println("通过构造器访问父类的默认变量："+testClass.getSex());
+        System.out.println("直接访问父类的private变量："+"不允许（编译出错）");
+        System.out.println("通过构造器访问父类的private变量："+testClass.getAge());
+
     }
 }

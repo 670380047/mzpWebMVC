@@ -14,6 +14,13 @@ package util.study.Designpattern.adapter.duotai;/**
  * @Date: 2020/6/18 18:10
  */
 public class TestClass extends TestAbstract {
+
+    public  String name;  // 测试继承关系:  子类可以自己接访问。也可以通过访问器来访问
+    protected Integer score;
+    String sex;
+    private Integer age;    // 测试继承关系
+
+
     @Override
     void eat() {
         System.out.println("TestClass的eat方法（eat方法的根源在TestAbstract抽象类中）");
@@ -22,5 +29,37 @@ public class TestClass extends TestAbstract {
     @Override
     public void say() {
         System.out.println("TestClass的say方法（say方法的根源在TestInterface接口中）");
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }
