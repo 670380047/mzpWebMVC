@@ -20,6 +20,12 @@ public class TestClass extends TestAbstract {
     String sex;
     private Integer age;    // 测试继承关系
 
+    /**
+     * 静态方法也可以继承.但不存在重写的情况。只存在隐藏(如果你在子类中又定义了一个相同签名的静态方法，那么父类的静态方法将被隐藏，而不是重写)
+     */
+    public static void myStatic(){
+        System.out.println("TestClass类的myStatic静态方法（来自于TestClass类）");
+    }
 
     @Override
     void eat() {
