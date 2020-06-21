@@ -19,12 +19,19 @@ import java.util.Objects;
 public class Person implements Comparable{
     public String name;
     public Integer age;
+    public int score;
 
     public Person(){}
 
     public Person(String name, int age) {
         this.name = name;
         this.age = age;
+    }
+
+    public Person(String name, Integer age, int score) {
+        this.name = name;
+        this.age = age;
+        this.score = score;
     }
 
     public void eat(){
@@ -50,35 +57,47 @@ public class Person implements Comparable{
         this.age = age;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
     // 系统自动创建的 equals方法。 判断逻辑太简单，不能保证内容相同就是同一个对象
 //    @Override
 //    public boolean equals(Object obj) {
 //        return super.equals(obj);
 //    }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Person person = (Person) o;
-//        return Objects.equals(name, person.name) &&
-//                Objects.equals(age, person.age);
-//    }
+    /**
+     * 重写equals方法的时候，使用“equals and hashCode”选项，就会根据变量来生成（如下）。  如果直接选择“override Methods”的话，生成的就太简单了（如上）
+     * @return
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return score == person.score &&
+                Objects.equals(name, person.name) &&
+                Objects.equals(age, person.age);
+    }
 
 
     // 自己重写了equals方法。可以保证内容相同，就是同一个对象
-    public boolean equals(Object obj){
-        if(this == obj){
-            return true;
-        }
-        if(obj instanceof  Person){
-            Person p = (Person) obj;
-            if(this.getName().equals(p.getName()) && this.getAge() == p.getAge()){
-                return true;
-            }
-        }
-        return false;
-    }
+//    public boolean equals(Object obj){
+//        if(this == obj){
+//            return true;
+//        }
+//        if(obj instanceof  Person){
+//            Person p = (Person) obj;
+//            if(this.getName().equals(p.getName()) && this.getAge() == p.getAge() && this.getScore() == p.getScore()){
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     // 系统重写的 hashCode方法。 可以保证相同内容生成的hashCode值一样。
     @Override
@@ -91,6 +110,7 @@ public class Person implements Comparable{
         return "Person{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
+                ", score=" + score +
                 '}';
     }
 

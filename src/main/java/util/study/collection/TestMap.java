@@ -16,11 +16,22 @@ import java.util.*;
  * java.util.Map: 用于存储成对对象的集合 key--value。   一个key对应一个value， 并且key不允许重复
  *      1 HashMap: 是Map接口的典型实现类。
  *              因为key的存储同set一样，使用hash算法，api中的原话：要成功存储和检索哈希表中的对象，用作键的对象必须实现hashCode方法和equals方法。
- *              HashMap保证key不允许重复的依据同HashSet一样（HashSet底层就是用HashMap存储的，key就是Set的值（set的值就是不重复的），value是一个空的Object对象）。
- *              原理：每个key生成的时候，都会根据他的内容生成一个对应的hashCode（哈希码）,然后内存中有一个哈希表，表中每个哈希码的位置都是固定的。
- *              当一个新的key要存入HashMap中的时候，会先去这个看这个哈希表的这个哈希码对应的位置有没有元素，如果没有的话，就会直接存进去；如果
- *              有的话，就会再根据equals方法来判断这个两个key是否是同一个key，如果不是同一个key，就存进去。如果是同一个key，就替换掉旧的元素。
- *              （所以这里都重写hashCode方法和equals方法，来保证相同内容生成的对象就是同一个）
+ *              HashMap保证key不允许重复的依据同HashSet一样（HashSet底层就是用HashMap存储的，Set的值就是key（set的值就是不重复的），value是一个空的Object对象）。
+ *              原理：每个key生成的时候，都会根据他的内容生成一个对应的hashCode（哈希码，是一个int类型：32位二进制数））,可以理解为内存的地址（但他并不是内存的地址,是经过地址计算的一个整数
+ *  *           对象类型时是调用Object的方法HashCode本地方法、数据类型是就是数值、String类型是：hashCode = 31*hashCode + char[i] 来计算的）。
+ *
+ *              然后采用hash算法来计算hash值： 用hashCode的值 “异或”上  hashCode的值“无符号右移”16位得到的值。 即 hash值= hashCode ^ (hashCode >>> 16)
+ *              这个hash值是用用来计算元素将要放在哪个桶中（数组的下标）。
+ *
+ *              jdk7之前是取模运算：（hash值 % 数组大小n）来计算数组的下标， jdk7改用：(数组大小n - 1) & hash值。位运算相比除法取模运算，效率高得多。即用了“与运算”来计算桶的位置（数组的下标）。
+ *              （注： hash值 % n  = (n-1) & hash值  ，是当n是2的指数的时候成立，比如n=2、4、6、8、16.... 所以hashMap扩容的时候，都是2的整数次幂，极保证条件成立，又有助于散列均匀）
+ *
+ *              此时得到了新元素将要放入的桶（数组）：
+ *              如果当前桶（数组）是空的话，就直接把新元素放进去即可，返回null。 如果当前桶不为空，就根据key值来调用equals方法来遍历同种的链表（key对应的类型需要重写equals方法）。如果key值已存在，
+ *              那就直接覆盖掉旧的value,并返回旧的value。如果key不存在，那就把新的键值对追加在链表的末尾。
+ *              （jdk8中）如果链表的长度大于8，那么就链表转化红黑树来处理。红黑树的查询时间复杂度为 O(log n)
+ *
+
  *              api中的原话：要成功存储和检索哈希表中的对象，用作键的对象必须实现hashCode方法和equals方法。
  *              To successfully store and retrieve objects from a hashtable(HashMap), the objects used as keys must implement the hashCode method and the equals method.
  *          1.1 LinkedHashMap: 是HashMap的子类。比HashMap多了一个链表来维护相邻元素的前后关系（便于遍历）。
@@ -120,6 +131,7 @@ public class TestMap {
         map.put("key1","v1");
         map.put(1,2);
         map.put(true,true);
+        map.put(new Person("张三",18),"放进去了" );   // 这个会覆盖掉之前key为new Person("张三",18)的键值对.因为Person重写了hashCode和equals方法。所以只要内容相同，在map中就被认为是同一个对象。
         System.out.println(map);
     // 因为Person重写了hashCode和equals方法。所以只要内容相同，在map中就被认为是同一个对象。
         boolean bool =  map.containsKey(new Person("张三",18));     // true

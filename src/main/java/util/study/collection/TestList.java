@@ -33,7 +33,7 @@ import java.util.List;
  *      int lastIndex0f(object obj)     // 从后查找指定元素的索引
  *      Object remove(int index)        //根据索引删除元素
  *      object set(int index, Object obj)   // 根据索引修改指定位置的元素
- *      List subList(int fromIndex, int toIndex)     // 根据索引截取一个子list： 包含头，不包含尾。 [ )  前开后闭区间
+ *      List subList(int fromIndex, int toIndex)     // 根据索引截取一个子list： 包含头，不包含尾。 [ )  前闭后开区间
  *
  *   LinkedList的常用方法：
  *      addFirst()      同  push(E e)
