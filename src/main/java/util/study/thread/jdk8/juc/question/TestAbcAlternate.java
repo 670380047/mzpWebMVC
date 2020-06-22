@@ -21,9 +21,10 @@ import java.util.concurrent.locks.ReentrantLock;
  * @Date: 2020/6/15 9:27
  */
 public class TestAbcAlternate {
+
+
     public static void main(String[] args) {
         Alternate alternate = new Alternate();
-
         /**
          * 定义lambda表达式写Runnable. 再下面重复使用
          */
@@ -62,10 +63,45 @@ public class TestAbcAlternate {
         },"线程C-1").start();
 
 
+
+
+
+        /**
+         * 线程A打印
+         */
+        new Thread( ()->{
+            for(int i =1;i<=20;i++){
+                alternate.loopA(i);
+            }
+        },"线程A-2").start();
+
+        /**
+         * 线程B打印
+         */
+        new Thread( ()->{
+            for(int i =1;i<=20;i++){
+                alternate.loopB(i);
+            }
+        },"线程B-2").start();
+
+        /**
+         * 线程C打印
+         */
+        new Thread( ()->{
+            for(int i =1;i<=20;i++){
+                alternate.loopC(i);
+            }
+        },"线程C-2").start();
+
     }
 }
 
 class Alternate{
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        System.out.println("Alternate类的finalize方法执行了");  //好像并没有执行
+    }
 
     Lock lock = new ReentrantLock();
     /**
@@ -92,7 +128,7 @@ class Alternate{
              * 1.判断是不是当前线程需要执行。
              *      如果不是，就等待。
              */
-            if(number != 1){
+            while(number != 1){
                 try {
                     condition1.await();
                 } catch (InterruptedException e) {
@@ -127,7 +163,7 @@ class Alternate{
             /**
              * 1.判断
              */
-            if(number != 2){
+            while(number != 2){
                 try {
                     condition2.await();
                 } catch (InterruptedException e) {
@@ -162,7 +198,7 @@ class Alternate{
             /**
              * 1.判断
              */
-            if(number != 3){
+            while(number != 3){
                 try {
                     condition3.await();
                 } catch (InterruptedException e) {

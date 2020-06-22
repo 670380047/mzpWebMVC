@@ -17,5 +17,6 @@ public class TestMain {
     public static void main(String[] args) {
         TestInterface testInterface = new TestClass();
         testInterface.say();
+//        System.out.println(testInterface.getClass());
     }
 }

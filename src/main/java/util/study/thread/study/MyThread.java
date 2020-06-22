@@ -7,6 +7,12 @@ package util.study.thread.study;/**
  */
 
 /**
+ *  创建线程的方式一共有4中：
+ *          1.继承Thread类、  --》PrimeThreadTest类中
+ *          2.实现Runnable接口、 --》PrimeRunTest类中
+ *          3.实现Callable接口、 --》TestCallable类中
+ *          4.线程池、      --》TestThreadPool类中   --》TestSimpleDateFormat类中
+ *
  * 1.什么是程序？为了完成某项特定的任务，使用某种语言，编写了一组指令的集合。
  * 2.什么是进程？就是一个正在进行的程序
  * 3.什么是线程？在一个进程中，执行一套功能流程，成为线程。
@@ -19,7 +25,7 @@ package util.study.thread.study;/**
  *      4.1 以单核CPU为例，单线程和多线程基本没有区别，甚至多线程更慢（把一个任务分成多块，多了cpu切换时间）
  *      4.2 多线程的优点：提高计算机系统对CPU的利用率。
  * 5. JVM本身是多线程的。如：main方法称为主线程，gc 也在并发执行。
- *
+ *      创建线程的方式一共有4中：继承Thread类、实现Runnable接口、实现Callable接口、线程池
  * 6. 创建线程的方式一： --PrimeThreadTest类中
  *      6.1 声明一个类继承Thread类
  *      6.2 重写run方法，同时编写线程执行体，也就是run方法的方法体
@@ -98,7 +104,7 @@ package util.study.thread.study;/**
  * 17. 线程通信（交互）： --WaitNotifyRunTest类中
  *          当多个线程在完成某些任务时，多个线程之间也需要一定通信，及线程通信。
  *
- *      17.1. wait(): 当前线程进入等待状态。
+ *      17.1. wait(): 当前线程进入等待状态。wait()方法：等待的同时，释放锁。 被唤醒然后在取到锁之后，还是在当前这个位置执行的，不是从新执行临界区的代码
  *      17.2. notify()/notifyAll(): 唤醒一个/所有当前监视器下（锁）处于等待状态的线程。
  * 18. 生产者消费者场景：  --TestProducer类中
  * @Description:

@@ -16,7 +16,7 @@ import java.util.Set;
  * 场景：模拟银行账户，用户A不断我那个账户里面存钱，最多存10000元，当存满是，通知用户B取钱。
  *      用户B不断的从该账户中取钱，当余额不足是，需要通知用户A存钱。
  *
- * 1. wait(): hi当前线程进入等待状态。
+ * 1. wait(): 当前线程进入等待状态。等待的同时，释放锁。 被唤醒后还是在取到锁之后，还是在当前这个位置执行的，不是从新执行临界区的代码
  * 2. notify()/notifyAll(): 唤醒一个/所有当前监视器下（锁）处于等待状态的线程。
  * @Description:
  * @Author maozp3
@@ -26,7 +26,7 @@ public class WaitNotifyRun implements Runnable{
     int a = 0;
 
     /**
-     * 同步监视器，静态变量。  也可以直接使用WaitNotifyRun.class。
+     * 同步监视器。  也可以直接使用WaitNotifyRun.class。
      * 主要就是为了保证多个线程的同步监视器是同一个引用。唯一的
      */
     Object object = new Object();
@@ -55,7 +55,7 @@ public class WaitNotifyRun implements Runnable{
                 }
                 try {
                     /**
-                     * wait()方法：等待的同时，释放锁。
+                     * wait()方法：等待的同时，释放锁。 被唤醒后还是在取到锁之后，还是在当前这个位置执行的，不是从新执行临界区的代码
                      */
 //                    WaitNotifyRun.class.wait();
                     object.wait();

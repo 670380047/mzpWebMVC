@@ -102,7 +102,7 @@ public class Person implements Comparable{
     // 系统重写的 hashCode方法。 可以保证相同内容生成的hashCode值一样。
     @Override
     public int hashCode() {
-        return Objects.hash(name, age);
+        return Objects.hash(name, age, score);
     }
 
     @Override

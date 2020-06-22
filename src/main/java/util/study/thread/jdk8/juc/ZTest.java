@@ -29,6 +29,7 @@ package util.study.thread.jdk8.juc;/**
  *         signal = notify
  *         signalAll = notifyAll
  *       condition.await()  condition.signal()   condition.signalAll()
+ *       wait()/await()方法：等待的同时，释放锁。 被唤醒然后在取到锁之后，还是在当前这个位置执行的，不是从新执行临界区的代码
  * 九、线程按序交替。    ---》question/TestAbcAlternate类中
  *      线程通信。多个lock的多个Condition互相唤醒。（轮流打印ABC）
  * 十、线程8锁       ---》product/TestThread8Monitor类中

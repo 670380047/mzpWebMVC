@@ -39,7 +39,8 @@ public class TestForkJoin {
         // 需要一个forkJoin池
         ForkJoinPool pool = new ForkJoinPool();
         ForkJoinTask<Long> task = new MyForkJoinCalculate(0,5000000000L);
-        Long sum = task.invoke();   // 开始执行任务
+        long sum = pool.invoke(task);   // 开始执行任务
+//        Long sum = task.invoke();   // 开始执行任务
         System.out.println(sum);
 
         Instant endTime = Instant.now();
@@ -71,9 +72,9 @@ public class TestForkJoin {
         Instant startTime = Instant.now();  // jdk8的时间
 
         long sum = 0L;
-        sum = LongStream.rangeClosed(0,5000000000L)
-                .parallel()
-                .reduce(0,Long::sum);
+        sum = LongStream.rangeClosed(0,5000000000L)// 数据范围
+                .parallel() // 开启并行流
+                .reduce(0,Long::sum);   //求和
         System.out.println(sum);
 
         Instant endTime = Instant.now();

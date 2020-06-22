@@ -21,5 +21,8 @@ public class WaitNotifyRunTest {
 
         Thread t2 = new Thread(waitNotifyRun1,"线程2");
         t2.start();
+
+//        Thread t3 = new Thread(waitNotifyRun1,"线程3");
+//        t3.start();
     }
 }

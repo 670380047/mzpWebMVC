@@ -27,6 +27,17 @@ import java.util.concurrent.*;
  *      4.ExecutorService  newScheduledThreadPool():创建固定大小的线程池，可以延迟或定时执行任务  ---》TestScheduledThreadPool类中
  *
  * 四、用Runnable创建线程池实例
+ * 提交任务有两种方式：
+ *      1. submit()
+ *      2. execute()
+ *      两种方式的区别：
+ *          1. 需要的参数不同：
+ *              submit() 参数 (Runnable) 或者 (Runnable 和 结果 T) 或者 (Callable)。
+ *              而execute() 参数只能是 Runnable 。
+ *          2.  返回值不同：
+ *              submit() 有返回值。
+ *              而execute() 没有返回值。
+ *
  * @Description:
  * @Author maozp3
  * @Date: 2020/6/15 14:28
@@ -36,11 +47,11 @@ public class TestThreadPool {
         /**
          * Runnable方式
          */
-//        TestRunnablePool();
+        TestRunnablePool();
         /**
          * Callable方式
          */
-        TestCallablePool();
+//        TestCallablePool();
     }
 
     /**
@@ -58,9 +69,11 @@ public class TestThreadPool {
         RunnablePool threadPool = new RunnablePool();
         /**
          * 3.为线程池中的线程分配任务
+         *   submit() 有返回值。而execute() 没有返回值；
          */
         for(int i=0;i<5;i++){
             pool.submit(threadPool);
+//            pool.execute(threadPool);
         }
         /**
          * 4.关闭线程池

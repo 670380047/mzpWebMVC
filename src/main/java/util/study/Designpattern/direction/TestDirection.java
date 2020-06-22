@@ -16,12 +16,12 @@ package util.study.Designpattern.direction;/**
 public class TestDirection {
     public static void main(String[] args) {
         /**
-         * 1.这个对象从最里层的new Food开始，  依次实例化到 最外层的new Bread
+         * 1.这个对象从“最里层”的new Food开始，  依次实例化到 “最外层”的new Bread
          */
         Food food = new Bread(new Cream(new Vegetable(new Food("鸡肉"))));
         /**
          * 2.然后调用make方法的时候。
-         * 从最外层的new Bread实例开始调用。
+         * 从“最外层”的new Bread实例开始调用。
          *      然后Bread类中的make()方法又调用了他自己内部的Food实例(就是这里的new Cream实例)的make()方法
          *      然后Cream类中的make()方法又调用了他自己内部的Food实例(就是这里的new Vegetable实例)的make()方法。
          *      然后Vegetable类中的make()方法又调用了他自己内部的Food实例(就是这里的new Food实例)的make()方法。
