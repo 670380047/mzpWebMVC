@@ -6,6 +6,8 @@ package util.math;/**
  * @Software: IntelliJ IDEA 2019.3.15
  */
 
+import org.junit.jupiter.api.Test;
+
 /**
  *
  * @Author maozp3
@@ -64,6 +66,34 @@ public class MathTest {
         return result;
     }
 
-    
+
+    @Test
+    public void test1(){
+        /**
+         * 在包装类型中
+         * -128 -- 127  这个范围内的整数被包装在固定的对象中。所以相等
+         */
+        Integer a = 127;
+        Integer b = 127;
+        System.out.println(a==b);  // true
+
+        /**
+         * 在包装类型中
+         * 不在-128 -- 127 范围内的数，即使数值相等，但也是两个不同的对象。因此用 == 比较是不相等的。
+         *      如果想要比较不在上面的范围内包装类型的值的话，用equals
+         */
+        Integer c = 1000;
+        Integer d = 1000;
+        System.out.println(c==d); // false
+        System.out.println(c.equals(d)); // true
+
+        /**
+         * 在基本类型中。数值相等，即为相等
+         */
+        int a1 = 1000;
+        int b1 = 1000;
+        System.out.println(a1==b1);  // true
+
+    }
 
 }

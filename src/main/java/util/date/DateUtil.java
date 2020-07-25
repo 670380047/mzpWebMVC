@@ -191,38 +191,38 @@ public class DateUtil {
     }
 
     public static void main(String[] args) throws ParseException {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        SimpleDateFormat d = new SimpleDateFormat("yyyyMMddHHmmss");
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        SimpleDateFormat d = new SimpleDateFormat("yyyyMMddHHmmss");
+//
+//        DateUtil crmUserService = new DateUtil();
+//        String date = "2016-1-31 01:30:06";
+//        String str = crmUserService.getCurrentDayAddDay(df.parse(date),2);
+//        System.out.println("str="+str);
 
         DateUtil crmUserService = new DateUtil();
-        String date = "2016-1-31 01:30:06";
-        String str = crmUserService.getCurrentDayAddDay(df.parse(date),2);
-        System.out.println("str="+str);
+        System.out.println(crmUserService.i);
+        System.out.println(crmUserService.aBoolean);
+//        String s = crmUserService.date.toString();  // 引用默认为空的全局变量。产生运行时错误：空指针
 
+        String str = crmUserService.getStr();
+        System.out.println("实例方法可以访问static变量："+str);
+        String str1 = DateUtil.getStrStatic();
+        System.out.println("静态方法可以调用static变量："+str1);
+    }
 
-//
-//        System.out.println("直接测试："+d.format("null"));
-//
-//
-//        String stringTime = "2019-11-12 20:42:34.0";
-//        Date resultDate = df.parse(stringTime);
-//        String resultString = d.format(resultDate);
-//        System.out.println("yyyyMMddHHmmss测试时间格式："+resultString);
-//
-//        Date resultDate2 = df.parse(stringTime);
-//        String resultString2 = d.format(resultDate2);
-//        System.out.println("yyyy-MM-dd HH:mm:ss测试时间格式："+resultString2);
+    /**
+     * 全局变量:引用类型默认为null。 基本类型为0、布尔类型为false
+     * 局部变量不会初始化为null，没有赋初始值的话，就会报错。
+     */
+     Date date;
+     int i;
+     boolean aBoolean;
+     static String str;
 
-
-//        try {
-//            String str ="123";
-//            System.out.println(str.substring(0,1024));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            System.out.println("测试"+e.getMessage().length());
-//            logger.error(e.getMessage()!=null&&e.getMessage().length()>=512?e.getMessage().substring(0,512):e.getMessage());
-//        }
-//        CrmUserService crmUserService = new CrmUserService();
-//        crmUserService.test();
+    public  String getStr() {
+        return str;
+    }
+    public static String getStrStatic() {
+        return str;
     }
 }

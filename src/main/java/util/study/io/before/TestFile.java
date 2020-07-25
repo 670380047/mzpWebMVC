@@ -41,7 +41,7 @@ import java.util.Date;
  *
  * 四、获取常规文件信息
  *      lastModified()    // 获取最后一次的修改时间
- *      1ength()    //获取文件大小，单位是KB。 只有文件可以查看大小，目录不可以
+ *      length()    //获取文件大小，单位是KB。 只有文件可以查看大小，目录不可以
  *
  * 五、文件操作相关
  *      createNewFile()  //创建新文件

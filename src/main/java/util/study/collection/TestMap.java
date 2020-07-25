@@ -98,6 +98,18 @@ public class TestMap {
         Person person1 = new Person("张三",18);
         Person person2 = new Person("张三",18);
 
+        // StringBuilder没有重写Object的hashCode方法（也没有重写equals()方法），所以他计算的hashCode是本地方法，得到的是内存的地址。
+        // 所以，sb和sb1虽然内容相同，但是这条记录不会被覆盖
+        StringBuilder sb = new StringBuilder();
+        sb.append("123");
+        map.put(sb,"StringBuilder");
+        // StringBuilder没有重写Object的hashCode方法（也没有重写equals()方法），所以他计算的hashCode是本地方法，得到的是内存的地址。
+        // sb2不会覆盖sb这条记录
+        StringBuilder sb2 = new StringBuilder();
+        sb2.append("123");
+        map.put(sb2,"StringBuilder2");
+        System.out.println(map.get(sb)); // 结果是：StringBuilder
+
         map.put(person1,18);    // 这一条记录被覆盖
         map.put(person2,19);    // 因为person类我已经重写了hashCode方法和equals方法。 所以只要内容相同（都是“张三”，18岁）就会被判定是重复的key
         System.out.println(map);
@@ -298,9 +310,14 @@ public class TestMap {
         treeMap.put(6,66);
 
 //        treeMap.put("123","123");   // 会报错。 因为前面存了integet类型，这里就不能再存其他类型了
+
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("123");
+//        treeMap.put(sb,"StringBuilder");      // 这个也会报错，因为StringBuilder没有实现Comparable接口的 compareTo(Object o)方法，所以不能存入TreeMap
+
         System.out.println(treeMap);
 
-        Person person1 = new Person("张三",18);       // 因为Person类实现了Comparable接口的 compareTo(Object o)方法，所以可以存入TreeSet
+        Person person1 = new Person("张三",18);       // 因为Person类实现了Comparable接口的 compareTo(Object o)方法，所以可以存入TreeMap
         Person person2 = new Person("李四",20);
         Person person3 = new Person("王五",19);
         TreeMap treeMap1 = new TreeMap();
@@ -357,6 +374,14 @@ public class TestMap {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Test
+    public void t(){
+        float ft = (float)1 * 0.75f;
+        System.out.println(ft);
+        System.out.println((int)ft);
+        System.out.println((0x7fffffff) - (1<<30));
     }
 
 }

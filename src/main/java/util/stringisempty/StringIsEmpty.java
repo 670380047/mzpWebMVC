@@ -6,6 +6,8 @@ package util.stringisempty;/**
  * @Software: IntelliJ IDEA 2019.3.15
  */
 
+import org.junit.jupiter.api.Test;
+
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -44,5 +46,14 @@ public class StringIsEmpty {
 //        return str == null || "".equals(str)||"null".equals(str)||"NULL".equals(str);
         return str == null || "".equals(str)||"NULL".equalsIgnoreCase(str.toString());
 
+    }
+
+    @Test
+    public void test2(){
+        String str1 = "ok";
+        String str2 = new String("ok");
+        String str3 = "ok";
+        System.out.println(str1 == str2);
+        System.out.println(str1 == str3);
     }
 }

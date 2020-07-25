@@ -45,6 +45,8 @@ import java.util.Properties;
  *      Bootstrap Classloader 引导类加载器，这个无法直接获取，因为是c++编写的：负责java平台核心库
  *      ExtClassLoader  拓展类加载器：负责jre/lib/ext目录下的jar包 或 -D java.ext.dirs指定目录下的jar包
  *      AppClassLoader  系统类加载器:（是最常用的类加载器） 加载 java -classpath所指的目录下的类与jar包 或 -D java.class.path所指的目录下类和jar包
+ *      Custom ClassLoader 自定义类加载器：通过java.lang.ClassLoader的子类来自定义加载class文件.属于应用程序根据自身需要自定义的classLoader.
+ *                                      如tomcat、jBoss都会根据j2ee的规范自行实现ClassLoader
  * 二、类加载器读取配置文件Properties（对比原始方式）
  * 三、在运行时创建对象的实例
  *      类名.class方式。省去强转
@@ -518,7 +520,7 @@ public class TestReflection {
             int parameterCount = methods[i].getParameterCount();
 //            System.out.println(parameterCount);
             for(int j=0;j<paramTypes.length;j++){
-                System.out.print(paramTypes[j].getName());
+                System.out.print(paramTypes[j].getSimpleName());
                 if(j+1 < parameterCount){
                     System.out.print(",");
                 }
@@ -560,7 +562,7 @@ public class TestReflection {
          *      第一个参数传对象实例，表示给那个对象的这个变量赋值
          *      第二个参数传这个变量的值。
          *  注意。变量如果是private修饰的，就必须用该变量调用setAccessible(true)，才可以访问。
-         *      public protect 和默认的  都不需要调用就可以访问
+         *      public protected 和默认的  都不需要调用就可以访问
          */
         name.set(person1,"张三");
         age.setAccessible(true); // 忽略访问权限（访问private私有变量的的时候需要用）
@@ -572,6 +574,7 @@ public class TestReflection {
         System.out.println(str1);
         int age1 = (int) age.get(person1);
         System.out.println(age1);
+        System.out.println(age.getType().getSimpleName());
     }
 
     /**
@@ -652,7 +655,7 @@ public class TestReflection {
     }
 
     /**
-     * 对象的引用（引用传递）
+     * 特殊：对象的引用（引用传递）
      * 测试引用传递
      */
     @Test

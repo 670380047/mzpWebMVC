@@ -47,15 +47,11 @@ public class TestService {
     @Transactional
     public int insertUserInfo(UserInfo userInfo){
         int flag;
-        try {
-            flag = userInfoMapper.insertUserInfo(userInfo);
-            System.out.println("userInfo对应的自增长的ID="+userInfo.getId());
-            int n = 1/0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("数据插入错误。。。。。数据回滚");
-            return 0;
-        }
+        // spring事务管理@Transactional  这里不需要做  try .... catch。  否则事务捕获不到异常。
+        flag = userInfoMapper.insertUserInfo(userInfo);
+        System.out.println("userInfo对应的自增长的ID="+userInfo.getId());
+        int n = 1/0;
+
         return  flag;
     }
 }
