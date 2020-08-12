@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
  */
 @Aspect   //声明为切面
 @Service   //一定要把这个类注册为bean，交给spring管理
-public class AnnotaionAspect {
+public class AnnotationAspect {
 
     ThreadLocal<Long> spendTime = new ThreadLocal<>();
     //这个切点表达式精确到了具体方法

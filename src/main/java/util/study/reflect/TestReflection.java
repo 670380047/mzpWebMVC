@@ -7,10 +7,14 @@ package util.study.reflect;/**
  */
 
 import org.junit.jupiter.api.Test;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 import java.lang.reflect.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -73,7 +77,8 @@ import java.util.Properties;
  *      1. clazz.newInstance()  默认调用无参构造器创建实例
  *      2. clazz.getConstructor(String.class)  获取有参构造器。创建实例
  *      3. 获取方法、无视访问权限setAccessible(true)等演示效果
- * 特殊：对象的引用（引用传递）
+ * 十七、特殊：对象的引用（引用传递）
+ * 十八、递归获取父类注解
  * @Description:
  * @Author maozp3
  * @Date: 2020/5/28 16:27
@@ -588,9 +593,14 @@ public class TestReflection {
         Class clazz = Person.class;
         /**
          * 1.创建一个对象的实例
-         * clazz.newInstance()  调用无参构造器
+         *      方式一：clazz.newInstance()  调用无参构造器
+         *      方式二：    Constructor noArgsConstructor = clazz.getConstructor();
+         *                 Person person1 = (Person) noArgsConstructor.newInstance();
+         *     方式二的两句相当于方式一
          */
-        Person person1 = (Person) clazz.newInstance();
+//        Person person1 = (Person) clazz.newInstance();    //等于下面的两句
+        Constructor noArgsConstructor = clazz.getConstructor(); // 没有参数，或者参数为null，都表示获取无参构造方法
+        Person person1 = (Person) noArgsConstructor.newInstance();
 
         /**
          * 1.1 获取 有参的构造器
@@ -655,7 +665,7 @@ public class TestReflection {
     }
 
     /**
-     * 特殊：对象的引用（引用传递）
+     * 十七、特殊：对象的引用（引用传递）
      * 测试引用传递
      */
     @Test
@@ -694,6 +704,62 @@ public class TestReflection {
         map.put("k1","456");
         System.out.println("方法内部的p:："+p);
         System.out.println("方法内部的map"+map);
+    }
+
+    /**
+     * 十八、递归获取父类注解
+     * 通过某个注解的 annotation.annotationType().getAnnotations()
+     */
+    @Test
+    public  void test() {
+        String abc= "a-z";
+        char[] chars = abc.toCharArray();
+        System.out.println(chars[0]);
+
+        String ABC= "A-Z";
+        char[] chars1 = ABC.toCharArray();
+        System.out.println(chars1[0]);
+
+        try {
+            Class clazz = Class.forName("com.example.demo.service.Service");
+            boolean bool = clazz.isInterface();
+            System.out.println("是否是接口："+bool);
+
+            Class clazz1 = Class.forName("com.example.demo.bean.AbstractTest");
+            boolean bool1 = Modifier.isAbstract(clazz.getModifiers());
+            System.out.println("是否是抽象类："+bool1);
+
+            Class controllerClass = Class.forName("com.example.demo.service.impl.ServiceImpl");
+            Annotation[]  annotations = controllerClass.getAnnotations();
+            testAno(annotations);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取父类注解
+     * @param annotations
+     */
+    public void testAno(Annotation[]  annotations ){
+        for(Annotation annotation : annotations){
+            // @Target、@Retention、@Documented 这三个注解的父类注解还是自己。是死循环。所以要排除
+            if(annotation.annotationType() == Target.class || annotation.annotationType()== Retention.class || annotation.annotationType() == Documented.class)
+            {
+                continue;
+            }
+            for(Annotation annotationSuper : annotation.annotationType().getAnnotations()){
+                if(annotationSuper.annotationType() == Component.class){
+                    System.out.println("找到了 MZPComponent.class注解");
+                }else{
+                    Annotation[] annotationNest = annotationSuper.annotationType().getAnnotations();
+                    if(annotationNest.length > 0){
+                        testAno(annotationNest);
+                    }
+                }
+            }
+        }
+
     }
 
 }

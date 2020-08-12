@@ -31,6 +31,11 @@ public class DynamicProxyHandler implements InvocationHandler {
         this.target = target;
 
         /**
+         * 注意：jdk的动态代理要求：
+         *      被代理的原生对象至少需要实现一个接口。
+         *      （springAOP中有两种动态代理的方式，一种是jdk的，一种是cglib的。
+         *      使用jdk代理时，这也是为什么要有service层 和 serviceImpl层的一个原因，因为代理对象需要至少一个接口）
+         *
          * 动态生成对象实例。
          * Proxy.newProxyInstance(ClassLoader loader,Class<?>[] interfaces,InvocationHandler h)
          *      第一个参数：通常与目标对象的类加载器保持一致

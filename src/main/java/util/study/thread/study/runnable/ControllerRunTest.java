@@ -18,14 +18,17 @@ public class ControllerRunTest {
         Thread t1 = new Thread(controllerRun,"控制1");
         t1.start();
         System.out.println("t1.isAlive() = "+ t1.isAlive());
+        System.out.println(t1.isInterrupted()+"**********");
         /**
          * 只要线程还活着，就“中断他的阻塞状态”（唤醒他）。
          */
         while (t1.isAlive()){
             /**
              * interrupt()方法调用完之后，就会从“阻塞状态”变为“就绪状态”
+             * 如果没有这个方法，线程会停顿1秒
              */
             t1.interrupt();
+//            System.out.println(t1.isInterrupted()+"---------");
         }
 
 

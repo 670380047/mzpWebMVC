@@ -13,7 +13,7 @@ import util.study.io.Student;
 import java.io.*;
 
 /**     对象流、数据流  都是处理流中的一种。
- *      数据流只能存储序列化8个个几本类型和包装类型。 对象流更加强大，还可以序列化对象。因此选择对象流。
+ *      数据流只能存储序列化8个基本类型和包装类型。 对象流更加强大，还可以序列化对象。因此选择对象流。
  * 数据流（略，和对象流操作一样，但是功能弱）：DataInputStream、DataOutputStream
  * 1.对象流：ObjectInputStream   ObjectOutputStream
  *      序列化：将内存中的对象永久的以二进制的形式保存到磁盘中

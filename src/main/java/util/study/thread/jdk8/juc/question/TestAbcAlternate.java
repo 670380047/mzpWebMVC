@@ -28,21 +28,16 @@ public class TestAbcAlternate {
         /**
          * 定义lambda表达式写Runnable. 再下面重复使用
          */
-//        Runnable runnable = ()->{
-//            for(int i =1;i<=20;i++){
-//                alternate.loopA(i);
-//            }
-//            System.out.println("-------------------------------");
-//        };
-
-        /**
-         * 线程A打印
-         */
-        new Thread( ()->{
+        Runnable runnable = ()->{
             for(int i =1;i<=20;i++){
                 alternate.loopA(i);
             }
-        },"线程A-1").start();
+        };
+
+        /**
+         * 线程A打印 （这个使用了定义好的lambda表达式：runnable）
+         */
+        new Thread( runnable,"线程A-1").start();
 
         /**
          * 线程B打印
@@ -69,11 +64,10 @@ public class TestAbcAlternate {
         /**
          * 线程A打印
          */
-        new Thread( ()->{
-            for(int i =1;i<=20;i++){
-                alternate.loopA(i);
-            }
-        },"线程A-2").start();
+        /**
+         * 线程A打印 （这个使用了定义好的lambda表达式：runnable）
+         */
+        new Thread( runnable,"线程A-2").start();
 
         /**
          * 线程B打印

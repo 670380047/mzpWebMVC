@@ -42,7 +42,7 @@ package util.study.thread.jdk8.juc;/**
  *          2.volatile 变量在每次被线程访问时，都强迫从主内存中重读该变量的值，而当该变量发生变化时，又会强迫线程将最新的值刷新到主内存，
  *            这样任何时刻，不同的线程总能看到该变量的最新值。
  *    volatile和 synchronized 对比
- *          1.volatile 是轻量级的同步策略
+ *          1.volatile 是轻量级的同步策略(如果仅仅是对一个变量的同步，那就直接把变量声明为volatile，而不需要对get/set方法加synchronized关键字)
  *          2.volatile 不具备“互斥性”
  *          3.volatile 不能保证变量的“原子性”   --原子性见：TestCAS类中
  * @Description:

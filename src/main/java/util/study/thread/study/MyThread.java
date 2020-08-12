@@ -68,7 +68,7 @@ package util.study.thread.study;/**
  *          12.2 getPriority() 获取优先级
  *          优先级高，比一定会先执行，只不过是更多的获取cpu的资源
  * 13. 线程的生命周期：--ControllerRunTestJoin类中
- *           （新建、就绪、运行、阻塞、死亡）
+ *           （新建、就绪、运行、阻塞、死亡）           书中是【新建、可运行、被阻塞、等待、计时等待、被终止】
  *          新建 ---start()---> 就绪（可运行） ---获取到了cpu--> 运行 --run()执行完/Error/Exception没处理--> 结束（死亡）
  *
  *          运行 ---sleep()/join()---> 阻塞 ----时间到/interrupt() ---> 就绪     --ControllerRunTest类中
