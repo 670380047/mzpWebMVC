@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *          “处理流” 用来包装节点流。处理流有很多个。来实现某些功能：比如缓冲流提高效率、对象流进行序列化、转换流、打印流等
  *
  * 二、IO流的结构体系（竖着看）
- *      只要涉及数据传输，就要创建节点流。  节点流可以被多种处理流包装
+ *      只要涉及数据传输，就要创建节点流,节点流有：访问文件的、访问数组的、访问管道的。  节点流可以被多种处理流包装
  *  抽象基类            节点流                 缓冲流(处理流中的一种)
  *  InputStream         FileInputStream     BufferedInputStream
  *  OutputStream        FileOutputStream    BufferedOutputStream

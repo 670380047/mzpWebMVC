@@ -29,4 +29,5 @@ public class Man extends Person{
 //        super.eat();      // 调用父类的方法。 但是this.getClass().getName() 得到的还是子类Man。
         System.out.println(this.getClass().getName()+":吃饭,我是Man类");
     }
+
 }

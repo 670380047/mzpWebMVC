@@ -45,6 +45,9 @@ public class SerializeObject {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             instance2 =  objectInputStream.readObject();
 
+            // 关闭输入流（最好是在finally中关闭）
+            objectInputStream.close();
+
             System.out.println(instance);
             System.out.println(instance2);
             System.out.println("序列化和反序列化的对象是否相等："+(instance == instance2));
@@ -54,6 +57,8 @@ public class SerializeObject {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        }finally {
+
         }
     }
 
