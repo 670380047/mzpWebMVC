@@ -31,6 +31,8 @@ public class Regx {
         System.out.println("\\\\".matches("\\\\")); // false     \\ 不等于 \
         System.out.println("\\\\.");    // 结果是  \\.   注意（在字符串中）被转义了就变成正常的字符了，不参与之后的转义。
         System.out.println(Pattern.compile("\'").matcher("\'").matches());  // true
+        System.out.println("=================字符串输出=================");
+        System.out.println("\\.".matches("\\.")); // false  前面的表示普通斜杠和一个点，后面的表示转义斜杠和一个点
 
     }
 }

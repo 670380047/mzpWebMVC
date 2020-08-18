@@ -23,6 +23,7 @@ public class SerializeObject {
     public static void main(String[] args) {
         // 先创建一个对象。下面把这个对象给序列化到磁盘
         Object instance = StaticInnerSingletonSerialize.getInstance();
+        System.out.println(instance);
 
         System.out.println("--------------序列化破坏单例-------------");
 
@@ -48,7 +49,7 @@ public class SerializeObject {
             // 关闭输入流（最好是在finally中关闭）
             objectInputStream.close();
 
-            System.out.println(instance);
+
             System.out.println(instance2);
             System.out.println("序列化和反序列化的对象是否相等："+(instance == instance2));
         } catch (FileNotFoundException e) {
