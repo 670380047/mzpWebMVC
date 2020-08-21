@@ -1,4 +1,4 @@
-package util.study.Designpattern.direction;/**
+package util.study.Designpattern.decorator;/**
  * @version: java version 1.7+
  * @Author : mzp
  * @Time : 2020/6/11 17:48
