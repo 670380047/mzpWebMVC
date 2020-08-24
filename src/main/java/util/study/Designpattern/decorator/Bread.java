@@ -1,31 +1,30 @@
-package util.study.Designpattern.decorator;/**
- * @version: java version 1.7+
- * @Author : mzp
- * @Time : 2020/6/11 17:48
- * @File : Bread
- * @Software: IntelliJ IDEA 2019.3.15
- */
+package util.study.Designpattern.decorator;
 
 /**
- * 装饰者模式： 面包类
- * @Description:
- * @Author maozp3
- * @Date: 2020/6/11 17:48
+ * 装饰者模式： 面包类。（在这里就是“被包装类”）
+ *
+ * @version: java version 1.7+
+ * @Author : mzp
+ * @Time : 2020/8/24 15:35
+ * @File : Bread
+ * @Software: IntelliJ IDEA 2019.2.04
  */
-public class Bread extends Food{
-    private Food foodName;
+public class Bread implements Food{
+    //被包装类的基础属性
+    private String foodName;
 
-    public Bread() {
-    }
-
-    public Bread(Food foodName) {
+    public Bread(String foodName) {
         this.foodName = foodName;
     }
 
     @Override
     public String make() {
-        String str = this.foodName.make()+"+面包";
-        return str;
+        return this.foodName;
+    }
 
+    //目前并未做实现
+    @Override
+    public Food addFood() {
+        return null;
     }
 }

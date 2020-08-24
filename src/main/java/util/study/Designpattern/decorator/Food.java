@@ -7,26 +7,17 @@ package util.study.Designpattern.decorator;/**
  */
 
 /**
- * 装饰者模式： 食物类
+ * 【装饰者模式】：
+ *      食物接口：规范
  * @Description:
  * @Author maozp3
  * @Date: 2020/6/11 17:47
  */
-public class Food {
-    private String foodName;
+public interface Food {
 
-    public Food() {
-    }
 
-    public Food(String foodName) {
-        this.foodName = foodName;
-    }
+    public String make();
 
-    public String make(){
-        return this.foodName;
-    }
+    public Food addFood();
 
-    public Food testFood(){
-        return this;
-    }
 }

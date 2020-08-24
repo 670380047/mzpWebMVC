@@ -30,7 +30,6 @@ public class TestDeepClone {
         person.setHobbies(hobbies);
         System.out.println("原型对象："+person);
 
-
         // 浅克隆得到的对象
         Person person1 = null;
         try {
