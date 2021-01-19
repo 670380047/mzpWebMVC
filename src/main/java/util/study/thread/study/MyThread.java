@@ -11,7 +11,7 @@ package util.study.thread.study;/**
  *          1.继承Thread类、  --》PrimeThreadTest类中
  *          2.实现Runnable接口、 --》PrimeRunTest类中
  *          3.实现Callable接口、 --》TestCallable类中
- *          4.线程池、      --》TestThreadPool类中   --》TestSimpleDateFormat类中
+ *          4.线程池、      --》TestThreadPool类中（包含批量处理数据的demo）   --》TestSimpleDateFormat类中
  *
  * 1.什么是程序？为了完成某项特定的任务，使用某种语言，编写了一组指令的集合。
  * 2.什么是进程？就是一个正在进行的程序

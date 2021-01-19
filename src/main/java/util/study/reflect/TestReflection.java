@@ -147,7 +147,7 @@ public class TestReflection {
 //            properties.load(new FileInputStream("src/main/resource/TestJdbc.properties"));
 
             /**
-             * 类加载器的方式。主要是为了获取出入节点流。 加载“包路径”下的配置文件。
+             * 类加载器的方式。主要是为了获取输入节点流。 加载“包路径”下的配置文件。
              */
             ClassLoader classLoader = this.getClass().getClassLoader();
             InputStream inputStream = classLoader.getResourceAsStream("util/study/reflect/TestJdbc.properties");

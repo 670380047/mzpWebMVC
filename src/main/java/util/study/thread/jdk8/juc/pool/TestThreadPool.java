@@ -6,13 +6,12 @@ package util.study.thread.jdk8.juc.pool;/**
  * @Software: IntelliJ IDEA 2019.3.15
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.*;
 
 /**
+ *  （mzp：本类中包含有批量处理数据的demo，在TestCallablePool方法中）
+ *
  * 一、线程池。提供了一个线程队列，队列中保存着所有等待状态的线程。避免了“创建与销毁”线程的额外开销。
  * 二、线程池的体系结构：
  *      1.java.util.concurrent.Executor接口: 负责线程的使用与调度的根接口
@@ -47,11 +46,11 @@ public class TestThreadPool {
         /**
          * Runnable方式
          */
-        TestRunnablePool();
+//        TestRunnablePool();
         /**
          * Callable方式
          */
-//        TestCallablePool();
+        TestCallablePool();
     }
 
     /**
@@ -84,28 +83,48 @@ public class TestThreadPool {
 //        pool.shutdownNow();
     }
 
+    /**
+     * 模拟一个大数据。保存在list中。  随后用线程池对这个list进行处理
+     */
+    private static LinkedList linkedList = new LinkedList();
 
     public static void TestCallablePool(){
+        //模拟创建一个大容量的数据。
+        createList();
+
         /**
          * 1.创建指定个数的线程池。5个
          */
         ExecutorService pool = Executors.newFixedThreadPool(5);
 
-        /**
-         * 2.创建Callable接口实现类的实例
-         */
-        CallablePool callablePool = new CallablePool();
+
         /**
          * 3.执行Callable需要FutureTask实现类的支持，用于接收运算结果。
          *  FutureTask是Future和Runnable接口的实现类
          */
-        List<FutureTask<Map<String,Integer>>> callResult = new ArrayList<>();
+        List<FutureTask<Map<String,List>>> callResult = new ArrayList<>();
 
-        for(int i=0;i<7;i++){
+        //线程需要处理的任务的数量。  （比如：这里是5个线程，处理10个任务）
+        int threadCount = 10;
+        Long start = System.currentTimeMillis();
+        for(int i=0;i<threadCount;i++){
+            int size = linkedList.size();
             /**
-             * 开5个线程去跑7次任务，会得到7个结果。 因为只有5个线程，所以有2个线程会被重复使用
+             * 将数据分成不同的子集，作用是让不同的线程处理不同的子集。
              */
-            callResult.add( (FutureTask<Map<String,Integer>>) pool.submit(callablePool)  );
+            List subList = linkedList.subList(size / threadCount * i, size / threadCount * (i + 1));
+
+            /**
+             * 2.创建Callable接口实现类的实例
+             * （这里传入了需要被处理的数据subList）
+             */
+            CallablePool callablePool = new CallablePool(subList);
+
+            /**
+             * 开5个线程去跑10次任务，会得到10个结果。
+             * 因为只有5个线程，所以有5个线程会被重复使用（有的不会被重复使用，而有的会被使用多次）
+             */
+            callResult.add( (FutureTask<Map<String,List>>) pool.submit(callablePool) );
         }
         /**
          * 4.关闭线程池
@@ -121,12 +140,29 @@ public class TestThreadPool {
             for(FutureTask futureTask : callResult){
                 System.out.println(futureTask.get());
             }
+            Long end = System.currentTimeMillis();
+            Long result = end - start;
+            System.out.println("处理过程耗时："+result+"毫秒");  //5个线程，打印10W条数据，耗时49毫秒
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 模拟创建一个大数据量的list，然后用线程池来完成这些数据的处理
+     */
+    public static void createList(){
+        Long start = System.currentTimeMillis();
+        for(int i=0;i<100;i++){
+            linkedList.add(i);
+        }
+        Long end = System.currentTimeMillis();
+        Long result = end - start;
+        System.out.println("初始化数据耗时："+result+"毫秒");
+    }
+
 }
 
 /**
@@ -150,17 +186,27 @@ class RunnablePool implements Runnable{
 /**
  * Callable接口的实现类
  */
-class CallablePool implements Callable<Map<String,Integer>> {
+class CallablePool implements Callable<Map<String,List>> {
     private int i = 0;
 
+    //模拟大容量的数据
+    List list ;
+
+    public CallablePool(List linkedList) {
+        this.list = linkedList;
+    }
 
     @Override
-    public Map<String,Integer> call() throws Exception {
-        Map<String,Integer> map = new HashMap<>();
-        while(i<=100){
-            System.out.println("Callable接口创建线程池："+Thread.currentThread().getName()+":"+(i++));
+    public Map<String,List> call() throws Exception {
+        Map<String,List> map = new HashMap<>();
+        System.out.println("Callable接口创建线程池："+Thread.currentThread().getName()+":"+list);
+
+        for(Object num : list){
+            System.out.print(num+",");
         }
-        map.put(Thread.currentThread().getName(),i);
+        System.out.println();
+        map.put(Thread.currentThread().getName(),list);
         return map;
     }
 }
+

@@ -8,9 +8,7 @@ package util.study.collection;/**
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 集合框架
@@ -55,6 +53,32 @@ import java.util.List;
  * @Date: 2020/4/20 15:37
  */
 public class TestList {
+
+    /**
+     * 1. 通过把list放入set中，来去重。
+     * 2. 利用jdk8的流中的distinct来去重
+     */
+    @Test
+    public void test0(){
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(1);
+        list.add(2);
+        list.add(2);
+        list.add(3);
+        list.add(3);
+        Set<Integer> set = new HashSet<>(list);
+//        Iterator<Integer> iterator = set.iterator();
+//        while(iterator.hasNext()){
+//            System.out.println(iterator.next());
+//        }
+        set.stream().forEach(e-> System.out.println(e));
+
+        System.out.println("=========jdk8的流中的distinct来去重=============");
+
+        list.stream().distinct().forEach(e-> System.out.println(e));
+
+    }
 
     @Test
     public void test1(){
