@@ -60,6 +60,7 @@ package util.study.thread.study;/**
  *      11.3 interrupt(): 是一个实例方法。用来唤醒“一次”阻塞的线程。（如果run方法中是循环睡眠的话，只会唤醒一次。）
  *      11.4 isAlive() : 是一个实例方法。用来判断线程是否存活状态。阻塞（睡眠）也是活跃状态。只要不是死亡
  *      11.5 yield() : 是一个静态方法。线程让步：暂缓当前线程的执行。（抢到资源之后，放弃资源，重新再抢）
+ *      11.6 interrupt(): 发个通知，让线程中断。--InterruptTest类中
  * 12. 线程优先级：1--10（1最低，10最高。默认是5） --PriorityRunnableTest类中
  *          12.1 setPriority(int newPriority) 设置优先级
  *              MIN_PRIORITY: 1
@@ -68,7 +69,7 @@ package util.study.thread.study;/**
  *          12.2 getPriority() 获取优先级
  *          优先级高，比一定会先执行，只不过是更多的获取cpu的资源
  * 13. 线程的生命周期：--ControllerRunTestJoin类中
- *           （新建、就绪、运行、阻塞、死亡）           书中是【新建、可运行、被阻塞、等待、计时等待、被终止】
+ *           操作系统中：【新建、就绪、运行、等待、死亡】        java中是【新建、可运行、被阻塞、等待、计时等待、被终止】
  *          新建 ---start()---> 就绪（可运行） ---获取到了cpu--> 运行 --run()执行完/Error/Exception没处理--> 结束（死亡）
  *
  *          运行 ---sleep()/join()---> 阻塞 ----时间到/interrupt() ---> 就绪     --ControllerRunTest类中
