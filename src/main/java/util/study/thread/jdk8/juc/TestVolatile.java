@@ -54,7 +54,7 @@ public class TestVolatile {
 
         ThreadDemo1 runnable1 = new ThreadDemo1();
 //        new Thread(runnable).start();   //Runnable接口还需要用 Thread实例化一下，才能使用。
-        Thread thread = new Thread(runnable1); //Runnable接口还需要用 Thread实例化一下，才能使用。
+        Thread thread = new Thread(runnable1,"线程1"); //Runnable接口还需要用 Thread实例化一下，才能使用。
         thread.start();
 
         while(true){
@@ -62,8 +62,9 @@ public class TestVolatile {
              * synchronized 保证每次都能刷新缓存。解决内存可见性引发的问题。
              */
             synchronized (runnable1){
-                if(runnable1.isSynchronized()){
-                    System.out.println("synchronized关键字处理完成：-----------  isSynchronized="+runnable1.isSynchronized());
+                if(runnable1.isSynchronized()){ //如果没有可见性的话，线程内部修改的数据在主线程是看不到的，程序不会结束，一直循环
+                    System.out.println("synchronized关键字处理完成：-----------  isSynchronized="+runnable1.isSynchronized()
+                            +"。已经读到"+thread.getName()+"刷新后的（isSynchronized）的值了。正常结束");
                     break;
                 }
             }
@@ -71,11 +72,13 @@ public class TestVolatile {
 
         ThreadDemo2 runnable2 = new ThreadDemo2();
 //        new Thread(runnable2).start();   //Runnable接口还需要用 Thread实例化一下，才能使用。
-        Thread thread2 = new Thread(runnable2); //Runnable接口还需要用 Thread实例化一下，才能使用。
+        Thread thread2 = new Thread(runnable2,"线程2"); //Runnable接口还需要用 Thread实例化一下，才能使用。
         thread2.start();
+
         while(true){
-            if(runnable2.isVolatile()){
-                System.out.println("volatile关键字处理完成：-----------  isVolatile="+runnable2.isVolatile());
+            if(runnable2.isVolatile()){  //如果没有可见性的话，线程内部修改的数据在主线程是看不到的，程序不会结束，一直循环
+                System.out.println("volatile关键字处理完成：-----------  isVolatile="+runnable2.isVolatile()+
+                        "已经读到"+thread2.getName()+"刷新后的（isVolatile）的值了。正常结束");
                 break;
             }
         }

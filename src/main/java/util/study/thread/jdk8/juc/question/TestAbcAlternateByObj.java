@@ -29,6 +29,7 @@ public class TestAbcAlternateByObj {
                 alternate.loopA(i);
             }
         },"线程A-1").start();
+
     }
 }
 
@@ -68,7 +69,7 @@ class AlternateByObj{
              */
             while(number != 1){
                 try {
-                    System.out.println("等待");
+                    System.out.println("loopA等待");
                     obj1.wait();
                 } catch (InterruptedException e) {
 //                    e.printStackTrace();
@@ -90,5 +91,6 @@ class AlternateByObj{
         }
 
     }
+
 
 }
