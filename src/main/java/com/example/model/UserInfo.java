@@ -14,13 +14,13 @@ package com.example.model;/**
  * @Date: 2019/4/12 11:15
  */
 
-
 public class UserInfo {
 
     private Long id;  //mysql中自增长类型一定要是数值类型，不能是String
     private String username;
     private String password;
     private int myAge;
+
 
     public String getUsername() {
         return username;
@@ -63,4 +63,7 @@ public class UserInfo {
                 ", myAge=" + myAge +
                 '}';
     }
+
+
+
 }
