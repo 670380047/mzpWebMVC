@@ -1,6 +1,5 @@
 package util.study.gupao.thread;
 
-import org.openjdk.jol.info.ClassLayout;
 
 /**
  * synchronized关键字。
@@ -54,7 +53,6 @@ public class SyncTest {
 
         Thread.sleep(10);  //为了保证打印结果好看。 休息10毫秒，保证其他线程先跑完
         System.out.println("打印syncTest3对象的布局信息（没有锁）：");
-        System.out.println(ClassLayout.parseInstance(syncTest3).toPrintable());
         System.out.println("main线程运行结束");
     }
 
@@ -78,7 +76,6 @@ public class SyncTest {
             //临界区
             System.out.println(Thread.currentThread().getName()+":我是修饰代码块的锁");
             System.out.println("打印对象的布局信息（有锁）：");  //sync这个对象是“同步锁”
-            System.out.println(ClassLayout.parseInstance(sync).toPrintable());
         }
     }
 
