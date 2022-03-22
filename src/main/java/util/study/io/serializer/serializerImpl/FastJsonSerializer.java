@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets;
  *
  * fastjson优势：实现简单，用起来方便
  *
- * windows测试连接github111
+ * windows测试连接github111222
  */
 public class FastJsonSerializer implements IMzpSerialize {
     @Override
