@@ -69,7 +69,8 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.35</version>
+<!--        <version>5.1.35</version>-->
+      <version>8.0.26</version>
     </dependency>
   <!--mybatis核心包-->
     <dependency>
@@ -132,6 +133,16 @@
     </dependency>
 
     <!--=====================json相关end=====================-->
+
+
+    <!--=====================xml相关start=====================-->
+            <!--  用于写对象序列化和反序列的例子。 序列化成xml格式    -->
+      <dependency>
+          <groupId>com.thoughtworks.xstream</groupId>
+          <artifactId>xstream</artifactId>
+          <version>1.4.10</version>
+      </dependency>
+    <!--=====================xml相关end=====================-->
 
 
     <!--=====================aop额外包aspectj相关  start=====================-->

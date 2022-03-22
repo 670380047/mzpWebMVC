@@ -43,7 +43,7 @@ import java.util.function.*;
 public class MethodRef {
 
     /**
-     * 类::静态方法名
+     * 对象::实例方法名
      */
     @Test
     public void test1(){
