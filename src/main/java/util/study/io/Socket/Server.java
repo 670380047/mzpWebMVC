@@ -8,7 +8,6 @@ package util.study.io.Socket;
  * @Software: IntelliJ IDEA 2019.2.04
  */
 
-import util.study.io.Person;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
