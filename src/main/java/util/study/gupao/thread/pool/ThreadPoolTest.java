@@ -163,6 +163,21 @@ public class ThreadPoolTest extends ThreadPoolExecutor {
 //        t.start();
 //        System.out.println(t.isAlive());
 
-        System.out.println(2&2); //与运算，用二进制来计算，返回的结果是十进制
+//        System.out.println(2&2); //与运算，用二进制来计算，返回的结果是十进制
+
+        int a = -3;
+        System.out.println(a);  // -3
+        //-3的原码： 10000000000000000000000000000011  ---》反码： 11111111111111111111111111111100 ---》 补码：11111111111111111111111111111101
+        System.out.println(Integer.toBinaryString(a)); //负数的二进制是用补码表示的。
+        System.out.println((a>>>1)); // 2147483646。  即 11111111111111111111111111111101 ---》 01111111111111111111111111111110
+        System.out.println(a);      // -3
+        int b = (1<<31)-1 ;     // 2147483647
+        System.out.println(b);  // 2147483647
+
+        System.out.println(a+2);
+        System.out.println(Integer.toBinaryString(a+2));
+
     }
 }
+
+

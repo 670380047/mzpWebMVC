@@ -1,0 +1,8 @@
+ /**
+     * 三、文件检测
+     *      exists()
+     *      canWrite()
+     *      canRead()
+     *      isFile()
+     *      isDirectory()
+     */

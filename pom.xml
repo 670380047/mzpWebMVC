@@ -216,13 +216,41 @@
       <artifactId>httpclient</artifactId>
       <version>4.5.9</version>
     </dependency>
-  <!--单元测试    -->
+
+    <!--cglib-nodep  包含cglib和asm-->
+      <dependency>
+          <groupId>cglib</groupId>
+          <artifactId>cglib-nodep</artifactId>
+          <version>3.2.10</version>
+<!--          <scope>test</scope>-->
+      </dependency>
+
+
+    <!--  jedis    -->
+      <dependency>
+          <groupId>redis.clients</groupId>
+          <artifactId>jedis</artifactId>
+          <version>3.0.1</version>
+          <scope>compile</scope>
+      </dependency>
+
+      <!-- 打印类的布局的一个工具包-->
+      <dependency>
+          <groupId>org.openjdk.jol</groupId>
+          <artifactId>jol-core</artifactId>
+          <version>0.10</version>
+      </dependency>
+
+
+      <!--单元测试    -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
       <version>RELEASE</version>
       <scope>compile</scope>
     </dependency>
+
+
 
 
   </dependencies>
