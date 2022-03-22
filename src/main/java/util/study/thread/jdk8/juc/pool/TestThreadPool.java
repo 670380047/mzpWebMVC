@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.concurrent.*;
 
 /**
- *  （mzp：本类中包含有批量处理数据的demo，在TestCallablePool方法中）
+ *  （mzp：本类中包含有批量处理数据的demo，在 TestCallablePool 方法中）
  *
  * 一、线程池。提供了一个线程队列，队列中保存着所有等待状态的线程。避免了“创建与销毁”线程的额外开销。
  * 二、线程池的体系结构：
@@ -70,7 +70,7 @@ public class TestThreadPool {
          * 3.为线程池中的线程分配任务
          *   submit() 有返回值。而execute() 没有返回值；
          */
-        for(int i=0;i<5;i++){
+        for(int i=0;i<10;i++){
             pool.submit(threadPool);
 //            pool.execute(threadPool);
         }
@@ -170,13 +170,10 @@ public class TestThreadPool {
  */
 class RunnablePool implements Runnable{
 
-    private int i = 0;
 
     @Override
     public void run() {
-        while(i<=100){
-            System.out.println("Runnable接口创建线程池："+Thread.currentThread().getName()+":"+(i++));
-        }
+            System.out.println("Runnable接口创建线程池："+Thread.currentThread().getName());
     }
 }
 

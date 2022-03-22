@@ -60,9 +60,7 @@ public class TestAbcAlternate {
 
 
 
-        /**
-         * 线程A打印
-         */
+
         /**
          * 线程A打印 （这个使用了定义好的lambda表达式：runnable）
          */
@@ -123,6 +121,10 @@ class Alternate{
              */
             while(number != 1){
                 try {
+                    /**
+                     *
+                     * await()被唤醒之后，他还是从这里继续往下执行，然后在await()里面还是会重新抢占锁，抢到才可以执行
+                     */
                     condition1.await();
                 } catch (InterruptedException e) {
 //                    e.printStackTrace();

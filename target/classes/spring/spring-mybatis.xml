@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--&lt;!&ndash;开启扫描bean&ndash;&gt;-->
+    <!--<context:component-scan base-package="com.example"/>-->
+
+    <!--引入配置文件-->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:jdbc.properties"/>
+    </bean>
+
+    <!--destroy-method="close"的作用是当数据库连接不使用的时候，就把该连接重新放到数据池中，方便下次使用调用。
+        但是不确定是不是名字叫close这个方法的时候，最好把该项去掉。万一叫closeXXX什么的呢。  去掉之后，让程序自己选择关闭的方法，不去指定-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <property name="initialPoolSize" value="${initialPoolSize}"/>
+        <property name="acquireIncrement" value="${acquireIncrement}"/>
+        <property name="maxIdleTime" value="${maxIdleTime}"/>
+        <property name="maxPoolSize" value="${maxPoolSize}"/>
+        <property name="minPoolSize" value="${minPoolSize}"/>
+        <property name="maxStatements" value="${maxStatements}"/>
+        <property name="maxStatementsPerConnection" value="${maxStatementsPerConnection}"/>
+    </bean>
+
+    <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 自动扫描mapping.xml文件，**表示迭代查找 -->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <!--扫描一些其他的本地配置，比如分页、打印sql语句之类的-->
+        <property name="configLocation" value="classpath:spring/mybatis-config.xml"/>
+    </bean>
+
+    <!-- DAO接口所在包名(只到包名，不带具体文件名，最后也不带.*)，
+    Spring会自动查找其下的类 ,包下的类需要使用@MapperScan注解,否则容器注入会失败
+    (似乎也可以什么注解都不写，@Repository或@MapperScan不写，他也会把这个路径下的所有类自动注册为bean) -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.example.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <!--配置事务管理器-->
+    <bean id="transactionManagerMZP" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--事务注解扫描器(spring的功能)。扫描@transactional注解，将事务管理器应用于该注解对应的方法-->
+    <tx:annotation-driven transaction-manager="transactionManagerMZP"/>
+
+</beans>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>主菜单</title>
+</head>
+<body>
+<!--用户名:<span th:text="${username}"></span> <br/>-->
+<!--密码:<span th:text="${password}"></span>-->
+    <p th:text="${loginMessgae}"/>
+
+    <table align="center" border="1" cellspacing="0">
+        <tr>
+            <td>id</td>
+            <td>username</td>
+            <td>password</td>
+            <td>age</td>
+        </tr>
+        <!--遍历userInfoList-->
+    </table>
+</body>
+</html>
