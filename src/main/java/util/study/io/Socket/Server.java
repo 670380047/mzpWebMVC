@@ -15,7 +15,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * Socket的服务端
+ * Socket的服务端。 测试一下mac链接github
  */
 public class Server {
     public static void main(String[] args) throws IOException {
