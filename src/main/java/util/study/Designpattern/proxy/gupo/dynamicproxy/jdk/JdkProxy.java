@@ -53,6 +53,7 @@ public class JdkProxy implements InvocationHandler {
         before();
 //        System.out.println(JdkProxy.class.getMethod("invoke",Object.class,Method.class,Object[].class).getReturnType().getName());
         // 调用正常的业务逻辑
+        // 这里的一个参数，传入的是一个对象，这个对象是谁，就决定这个方法是哪个对象实例的"原方法"了。
         result = method.invoke(this.targetInstance,args);
         // 调用后的增强
         after();
