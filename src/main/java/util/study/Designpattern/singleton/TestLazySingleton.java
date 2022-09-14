@@ -133,8 +133,15 @@ class LazySingleton2 implements Serializable {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    // 这里 有一个指令重排序的问题。静态变量instance 和 对象的堆内存new LazySingleton2() 分配的先后顺序？？？
-                    // 有吗？静态变量不是在类加载的时候就分配好内存了吗？  而堆内存是后面这个方法执行的时候才分配的。 肯定一个前一个后，不会反过来呀
+                    // 这里 有一个指令重排序的问题。静态变量instance 和 对象的堆内存new LazySingleton2() 分配的先后顺序
+                    // 这里 有一个指令重排序的问题。静态变量instance 和 对象的堆内存new LazySingleton2() 分配的先后顺序
+                    // instance = new LazySingleton2(); 这一句对象的创建有3个步骤：
+                    // 1.给LazySingleton2对象分配内存地址
+                    // 2.调用LazySingleton2的构造方法来创建对象，并初始化成员属性为默认是：0或null
+                    // 3.instance指向这个LazySingleton2对象的地址。
+                    // 如果第二步和第三步顺序调换，即第三步提前，此时instance已经被分配了对象地址了（但此时这个对象还没有初始化，里面的属性是0或null）
+                    // 此时线程2进来判断双重校验所最外层的if,发现instance已经不是null了,于是就直接拿去用了，一用就会报错。
+                    // 因为instance所指向的对象的属相并没有被初始化。
                 }
             }
         }
