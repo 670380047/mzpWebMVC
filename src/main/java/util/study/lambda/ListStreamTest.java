@@ -78,15 +78,15 @@ public class ListStreamTest {
         System.out.println("使用stream遍历集合:");
         streamList.stream().forEach(num -> System.out.print(num+" "));
         System.out.println("\nfilter(匿名表达式)：根据条件匹配合适的数据:");
-        streamList.stream().filter(num->num>=6).forEach(num -> System.out.print(num+" "));
+        streamList.stream().filter(num -> num >= 6).forEach(num -> System.out.print(num + " "));
         System.out.println("\ndistinct()：用来去重:");
         streamList.stream().distinct().forEach(num -> System.out.print(num+" "));
         System.out.println("\nsorted():自然排序：升序");
         streamList.stream().sorted().forEach(num -> System.out.print(num+" "));
         System.out.println("\nsorted(自定义比较器)：排序.这里我期望“后面的数a比前面的数b小”，所以是降序");
-        streamList.stream().sorted( (a,b)->a<=b?1:-1  ).forEach(num -> System.out.print(num+" "));
+        streamList.stream().sorted((a, b) -> a <= b ? 1 : -1).forEach(num -> System.out.print(num + " "));
         System.out.println("\n先去重，再排序。sorted(自定义比较器)：排序.这里我期望“后面的数a比前面的数b小”，所以是降序");
-        streamList.stream().distinct().sorted( (a,b)->a<=b?1:-1  ).forEach(num -> System.out.print(num+" "));
+        streamList.stream().distinct().sorted((a, b) -> a <= b ? 1 : -1).forEach(num -> System.out.print(num + " "));
         System.out.println("\nlimit(n):保留前n个数");
         streamList.stream().limit(2).forEach(num -> System.out.print(num+" "));
         System.out.println("\nskip(n):跳过前n个数");
@@ -109,11 +109,14 @@ public class ListStreamTest {
 
         //数组无法直接调用stream()，  只能通过Stream.of(要操作的数组)  或者   Arrays.stream(要操作的数组)  或者  把数组转成list之后，在调用stream()
         System.out.println("\n\n\nStream.of(stringList)的方式，对stringList的元素遍历：");
-        Stream.of(stringlist).forEach(e-> System.out.print(e+" "));
+        Stream.of(stringlist).forEach(e -> System.out.print(e + " "));
         System.out.println("\nArrays.stream(stringList)的方式，map()打印stringList中每个字符串的长度：");
-        Arrays.stream(stringlist).map(e->e.length()).forEach(e-> System.out.print(e+" "));
+        Arrays.stream(stringlist).map(e -> e.length()).forEach(e -> System.out.print(e + " "));
         System.out.println("\n把数组转换成list的方式，对stringList的元素遍历：");
-        Arrays.asList(stringlist).stream().forEach(e->{System.out.print(e+" "); System.out.println(e.getClass());} );
+        Arrays.asList(stringlist).stream().forEach(e -> {
+            System.out.print(e + " ");
+            System.out.println(e.getClass());
+        });
 
 
 
@@ -278,6 +281,27 @@ public class ListStreamTest {
                 .reduce(Integer::sum);  // 在对年龄进行求和。（这里没有起始值，结果可能为空。所以返回的是Optional来避免空指针）
         System.out.println(ageSumOp.get());  // 打印Optional的值
     }
+    /**
+     * 去空格，去重，过滤
+     * @author mao.zongpeng
+     * @date 2022/11/29 16:25
+     */
+    @Test
+    public void test7(){
+        // 将字符串转换为数组，
+        String strSrc = "170004,  170005,170009,170025  ,170044,170071,170137,170227,170270,170276,170285,170382,170423,170429,170516,170519,170566,170618,170627,170659,170708,170914,171000,171006,171087,171135,171188,171761,172142,172159,172174,172212,172350,172435,172459,172547,172731,172737,172754,172953,173213,173238,173409,173417,173815,174588,174718,174897,174932,174934,175231,175491,175620,176328,176568";
+        String[] split1 = strSrc.split(",");
+        // 将数组split1元素去空格后，转换为集合
+        List<String> collectSrc = Arrays.stream(split1).map(String::trim).collect(Collectors.toList());
+
+        String strOld = "170004,170005,170009,170025,170030,170031,170044,170071,170137,170227,170270,170276,170285,170382,170423,170429,170516,170519,170566,170618,170627,170659,170708,170914,170919,171000,171006,171087,171135,171188,171761,172142,172159,172174,172212,172350,172435,172459,172547,172731,172737,172754,172953,173213,173238,173409,173417,173815,174588,174718,174897,174932,174934,175231,175491,175620,176328,176568";
+        String[] split2 = strOld.split(",");
+        List<String> collectOld = Arrays.stream(split2).map(String::trim).collect(Collectors.toList());
+        // 从collect2中过滤出 不存在 collectTable中的元素
+        List<String> resultList = collectOld.stream().filter(e -> !collectSrc.contains(e)).collect(Collectors.toList());
+
+        resultList.forEach(System.out::println);
+    }
 
     /**
      * 收集：
@@ -348,7 +372,7 @@ public class ListStreamTest {
         System.out.println(minNum.get());
 
         System.out.println("--------------分组Group By----------------");
-        Map<Integer,List<UserInfo>> map = userInfoList.stream()     // 分组的返回值是一个map,期中key是分组字段的所属类型，value是某中类型的对象的集合
+        Map<Integer,List<UserInfo>> map = userInfoList.stream()     // 分组的返回值是一个map,期中key是分组字段的所属类型，value是List中的对象的集合
                 .collect(Collectors.groupingBy(UserInfo::getAge));
         System.out.println(map);
         // 遍历map
