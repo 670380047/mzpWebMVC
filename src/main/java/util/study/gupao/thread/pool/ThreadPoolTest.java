@@ -16,7 +16,7 @@ import java.util.concurrent.*;
 public class ThreadPoolTest extends ThreadPoolExecutor {
 
     /**
-     * 创建一个缓存时间的CMH
+     * 创建一个缓存时间的CHM
      */
     private ConcurrentHashMap<String, Date> startTime ;
 

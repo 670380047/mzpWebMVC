@@ -380,6 +380,19 @@ public class ListStreamTest {
             System.out.println("key is "+ entry.getKey());
             System.out.println("value is " + entry.getValue());
         }
+
+        System.out.println("--------------根据key转换为map: toMap----------------");
+        // 分组的返回值是一个map,期中key是分组字段的所属类型，value是集合中的一个对象，
+        // 最后的(value1, value2) -> value2) 是：当统一个key对应多个值的时候，选择value2,也就是新的值（也就是覆盖）。在hashMap的merge方法中就是选择"新的值，用新的值覆盖旧的值"
+        // 如果(value1, value2) -> value1)的话，就是选择第一个值（也就是不变）。在hashMap的merge方法中就是"用自己覆盖自己。也就是不变化，不处理"
+        Map<Integer, UserInfo> toMap = userInfoList.stream()
+                .collect(Collectors.toMap(UserInfo::getAge, userInfo -> userInfo, (value1, value2) -> value2));
+        System.out.println(map);
+        // 遍历map
+        for (Map.Entry<Integer, UserInfo> entry : toMap.entrySet()) {
+            System.out.println("key is " + entry.getKey());
+            System.out.println("value is " + entry.getValue());
+        }
     }
 
 }

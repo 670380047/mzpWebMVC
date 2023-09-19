@@ -507,7 +507,9 @@ public class TestIo {
              */
             byte[] bytes = new byte[1024];
             int len = 0;
-
+            /**
+             * bufferedInputStream.read(bytes)    将输入流的值，读到 bytes里面。 数据流"从左往右 ---> bytes"
+             */
             while( (len = bufferedInputStream.read(bytes))!= -1){
                 /**
                  * 4.将指定内容写到目标地点
@@ -516,6 +518,9 @@ public class TestIo {
                  *      当缓冲区被写满了/或者流正常关闭之后，就会往文件里面写
                  */
                 // 这里可以理解为把“读取的缓冲区” 写入到了 缓冲流的缓冲区中。当写满8K/或者流正常关闭之后，缓冲流就会把数据写到指定文件里
+                /**
+                 * 将bytes中的内容写入到输出流中   数据流"从右往左   <--- bytes"
+                 */
                 bufferedOutputStream.write(bytes,0,len);
             }
             /**
