@@ -1,0 +1,3 @@
+#spi接口的子类，每行一个子类。
+util.study.spiTest.impl.Cat
+util.study.spiTest.impl.Dog
