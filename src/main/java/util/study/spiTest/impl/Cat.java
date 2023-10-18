@@ -12,6 +12,6 @@ import util.study.spiTest.service.Animal;
 public class Cat implements Animal {
     @Override
     public void shout() {
-        System.out.println("猫的叫声：喵喵...");
+        System.out.println("猫的叫声：喵喵1...");
     }
 }
