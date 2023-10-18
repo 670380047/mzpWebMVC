@@ -2,31 +2,33 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
-                        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+                        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!--启用spring的一些注解-->
     <!--<context:annotation-config/>-->
 
     <!--1.开启spring的一些配置，和<context:annotation-config/>功能一样。
-        2.自动扫描该包，默认是把注解了@Service、@Controller、@Repository注册为bean（和1的作用一样）。
-        关闭了默认过滤之后，即use-default-filters="false"，就，只配置include-filter标注的注解类型了
-        使springmvc认为把该包下使用了@Controller、@Service注解的类注册为Bean-->
+        2.自动扫描该包，默认是把注解了@Service、@TestController、@Repository注册为bean（和1的作用一样）。
+        关闭了默认过滤之后，即use-default-filters="false"，就只配置include-filter标注的注解类型了
+        使springmvc认为把该包下使用了@Controller、@Service、Repository注解的类注册为Bean-->
     <context:component-scan base-package="com.example" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
     </context:component-scan>
+
 
     <!--handlerMapping无需配置，springmvc默认启动-->
 
 
     <!--静态资源映射-->
     <!--本项目把静态资源放在了WEB-INF的statics目录下，资源映射如下-->
-    <mvc:resources mapping="/css/**" location="WEB-INF/statics/css"/>
-    <mvc:resources mapping="/js/**" location="WEB-INF/statics/js"/>
-    <mvc:resources mapping="/image/**" location="WEB-INF/statics/image"/>
+    <mvc:resources mapping="/css/**" location="WEB-INF/statics/css/"/>
+    <mvc:resources mapping="/js/**" location="WEB-INF/statics/js/"/>
+    <mvc:resources mapping="/image/**" location="WEB-INF/statics/image/"/>
 
     <!--但是项目部署到linux下发现WEB-INF的静态资源会出现无法解析的情况，但是本地tomcat访问正常，因此建议还是直接把静态资源放在webapp的statics下，映射配置如下-->
     <!--<mvc:resources mapping="/css/**" location="/statics/css/"/>-->
@@ -35,7 +37,7 @@
 
     <mvc:interceptors>
         <!--只指定拦截器，不指定拦截路径，拦截路径默认为/*-->
-        <bean class="com.example.service.intercepter.HandlerInterceptor1"/>
+        <bean class="com.example.interceptor.HandlerInterceptor1"/>
 
         <!--<mvc:interceptor>-->
         <!--<mvc:mapping path="/*"/>-->
@@ -73,6 +75,17 @@
                 <property name="defaultCharset" value="utf-8">
                 </property>
             </bean>
+
+            <!-- json转换器  避免ajax请求时出现415错误 -->
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+
         </mvc:message-converters>
     </mvc:annotation-driven>
 
@@ -80,13 +93,57 @@
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/"/>    <!-- jsp文件所在位置-->
-        <property name="suffix" value=".jsp"/>
+        <property name="suffix" value=".jsp"/>          <!-- 页面的后缀名-->
+        <property name="order" value="1"/>    <!-- 配置多视图解析器时，值越小，优先级越高-->
     </bean>
+
+    <!--=====================thymeleaf  start=======================-->
+    <!--springMVC整合thymeleaf视图解析器-->
+    <!--<bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">-->
+        <!--<property name="prefix" value="/WEB-INF/"/>-->
+        <!--<property name="suffix" value=".html"/>-->
+        <!--<property name="templateMode" value="HTML5"/>-->
+    <!--</bean>-->
+    <!--<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">-->
+        <!--<property name="templateResolver" ref="templateResolver"/>-->
+        <!--<property name="enableSpringELCompiler" value="true"/>-->
+    <!--</bean>-->
+    <!--<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">-->
+        <!--<property name="templateEngine" ref="templateEngine"/>-->
+        <!--<property name="characterEncoding" value="utf-8"/>-->
+        <!--<property name="order" value="0"/>  &lt;!&ndash; 配置多视图解析器时，值越小，优先级越高&ndash;&gt;-->
+    <!--</bean>-->
+    <!--=====================thymeleaf  end=======================-->
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="20971500"/>  <!--大小限制20M-->
         <property name="defaultEncoding" value="utf-8"/>
         <property name="resolveLazily" value="true"/>
     </bean>
+
+<!--===========================aop=============================-->
+    <!--实例化一个自定义的 日志切面-->
+    <bean id="logAspectType" class="com.example.aop.MyAspect"></bean>
+
+    <!--aop 开启aop代理。  否则aop不会生效-->
+    <aop:aspectj-autoproxy>
+    </aop:aspectj-autoproxy>
+    
+    <aop:config>
+        <!--定义切点-->
+        <aop:pointcut id="loggerPointCut" expression="execution(* com.example.service.*.checkUser(..))"/>
+
+        <!--定义使用日志切面-->
+        <aop:aspect id="logAspect" ref="logAspectType">
+            <!--设置around方式。引用切点，以及切点中的方法-->
+            <aop:around method="log" pointcut-ref="loggerPointCut"/>
+        </aop:aspect>
+
+            <!--定义使用计算时间切面-->
+        <aop:aspect id="timeAspect" ref="logAspectType">
+            <!--设置around方式。引用切点，以及切点中的方法-->
+            <aop:around method="spendTime" pointcut-ref="loggerPointCut"/>
+        </aop:aspect>
+    </aop:config>
 
 </beans>
