@@ -12,6 +12,7 @@ import util.study.spiTest.service.Animal;
 public class Cat implements Animal {
     @Override
     public void shout() {
+//        测试git的配置文件：git config --local user.name "毛宗鹏"
         System.out.println("猫的叫声：喵喵1...");
     }
 }
