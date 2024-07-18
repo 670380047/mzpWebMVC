@@ -31,6 +31,9 @@ import java.io.*;
  * 一、序列化
  * 二、反序列化
  * 三、对象序列化
+ *      实现了Serializable接口的类，序列化的执行路径：（序列化执行路径）
+ *          #writeObject -> #writeObject0(判断类是否是自定义类) -> #writeOrdinaryPbject(区分Serializable和Externalizable)
+ *          -> #writeSerialData(系列化fields) -> invokeWriteObject(反射调用类自己的序列化策略)
  * 四、对象的反序列化
  *
  * @Description:
